@@ -1,20 +1,20 @@
 1) Registro y login
-2) Productos: titulo, descripción, foto, categoria, palabras claves, fecha de creación. (Vendedor)
-	2.1) Añadir
+2) Productos: titulo, descripciÃ³n, foto, categoria, palabras claves, fecha de creaciÃ³n. (Vendedor)
+	2.1) AÃ±adir
 	2.2) Borrar
 	2.3) Lectura 
-	2.4) Modificarodificar
+	2.4) Modificar
 	
 3) Comprador:  
-	3.1) Búsqueda
+	3.1) BÃºsqueda
 	3.2) Comentarios a los productos
-	3.3) Valoración (estrellas, puntuación) 
+	3.3) ValoraciÃ³n (estrellas, puntuaciÃ³n) 
 	
 4) Administrador: Ve los usuarios y los productos
 
 Gestor base de datos: mysql
 Api de google drive
 
-1º paso: diseño de la base de datos.
-2º paso: pacto de socios. (responsabilidades de cada uno, toma de decisiones, incumplimiento y consecuencias, responsable de equipo, firmado por todos)
+1Âº paso: diseÃ±o de la base de datos.
+2Âº paso: pacto de socios. (responsabilidades de cada uno, toma de decisiones, incumplimiento y consecuencias, responsable de equipo, firmado por todos)
  
