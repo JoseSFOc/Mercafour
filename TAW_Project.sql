@@ -28,7 +28,7 @@ CREATE TABLE CATEGORIA (
     nombre VARCHAR(50),
     supercategoria INTEGER, /* FK -> CATEGORIA  */
     PRIMARY KEY (id_categoria),
-    CONSTRAINT supercategorias_fk FOREIGN KEY (supercategoria) REFERENCES CATEGORIA(id_categoria)
+    CONSTRAINT supercategorias_fk FOREIGN KEY (supercategoria) REFERENCES CATEGORIA(id_categoria) ON DELETE CASCADE
 );
 
 
@@ -46,10 +46,10 @@ CREATE TABLE PRODUCTO(
     fecha DATE,
     imagen VARCHAR(100),
     propietario INTEGER NOT NULL, /* FK -> USUARIO */
-    categoria INTEGER NOT NULL, /* FK -> CATEGORIA */
+    categoria INTEGER, /* FK -> CATEGORIA */
     PRIMARY KEY (id_producto),
-    CONSTRAINT usuario_producto_fk FOREIGN KEY (propietario) REFERENCES USUARIO(id_usuario),
-    CONSTRAINT categoria_producto_fk FOREIGN KEY (categoria) REFERENCES CATEGORIA(id_categoria)
+    CONSTRAINT usuario_producto_fk FOREIGN KEY (propietario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE ,
+    CONSTRAINT categoria_producto_fk FOREIGN KEY (categoria) REFERENCES CATEGORIA(id_categoria) ON DELETE SET NULL
 );
 
 CREATE TABLE COMENTARIO(
@@ -59,16 +59,16 @@ CREATE TABLE COMENTARIO(
     autor INTEGER NOT NULL, /* FK -> USUARIO */ /* PK */
     producto INTEGER NOT NULL, /* FK -> PRODUCTO */ /* PK */
     PRIMARY KEY (autor, producto),
-    CONSTRAINT usuario_comentario_fk FOREIGN KEY (autor) REFERENCES USUARIO(id_usuario),
-    CONSTRAINT producto_comentario_fk FOREIGN KEY (producto) REFERENCES PRODUCTO(id_producto)
+    CONSTRAINT usuario_comentario_fk FOREIGN KEY (autor) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
+    CONSTRAINT producto_comentario_fk FOREIGN KEY (producto) REFERENCES PRODUCTO(id_producto) ON DELETE CASCADE
 );
 
 CREATE TABLE PRODUCTO_PALABRA_CLAVE(
     producto INTEGER NOT NULL, /* FK -> PRODUCTO */ /* PK */
     palabra_clave INTEGER NOT NULL, /* FK -> PALABRA_CLAVE */ /* PK */
     PRIMARY KEY (producto, palabra_clave),
-    CONSTRAINT producto_palabra_clave_fk FOREIGN KEY (producto) REFERENCES PRODUCTO(id_producto),
-    CONSTRAINT palabra_clave_producto_fk FOREIGN KEY (palabra_clave) REFERENCES PALABRA_CLAVE(id_palabra_clave)
+    CONSTRAINT producto_palabra_clave_fk FOREIGN KEY (producto) REFERENCES PRODUCTO(id_producto) ON DELETE CASCADE,
+    CONSTRAINT palabra_clave_producto_fk FOREIGN KEY (palabra_clave) REFERENCES PALABRA_CLAVE(id_palabra_clave) ON DELETE CASCADE
 );
 
 --------------------------
