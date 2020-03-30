@@ -1,2 +1,10 @@
 /Mercafour/build/
 /Mercafour/dist/
+/Mercafour/nbproject/
+/Mercafour/build.xml
+
+*.class
+
+*.jar
+*.war
+*.ear
