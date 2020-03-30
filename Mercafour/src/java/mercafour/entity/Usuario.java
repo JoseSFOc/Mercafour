@@ -48,20 +48,20 @@ public class Usuario implements Serializable {
     private Integer idUsuario;
     @Column(name = "ADMINISTRADOR")
     private Boolean administrador;
-    @Size(max = 50)
-    @Column(name = "USERNAME")
+    //@Size(max = 50)
+    @Column(name = "USERNAME", length = 50)
     private String username;
-    @Size(max = 50)
-    @Column(name = "PASSWORD")
+    //@Size(max = 50)
+    @Column(name = "PASSWORD", length = 50)
     private String password;
-    @Size(max = 50)
-    @Column(name = "NOMBRE")
+    //@Size(max = 50)
+    @Column(name = "NOMBRE", length = 50)
     private String nombre;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "EMAIL")
+    //@Basic(optional = false)
+    //@NotNull
+    //@Size(min = 1, max = 50)
+    @Column(name = "EMAIL", length = 50, nullable = false, unique = true)
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "propietario")
     private List<Producto> productoList;
