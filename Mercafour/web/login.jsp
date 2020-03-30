@@ -10,7 +10,11 @@
     Usuario user = (Usuario)session.getAttribute("user");
     String status;
     if(user != null){
-        response.sendRedirect(""); // Poner la pagina principal de la aplicacion
+        if(user.getAdministrador()){
+            response.sendRedirect(""); // Pagina principal admin
+        }else{
+            response.sendRedirect(""); //Paquina principal usuario
+        }
     }
     
     status = (String)request.getAttribute("status");
