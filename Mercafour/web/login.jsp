@@ -4,7 +4,21 @@
     Author     : aleja
 --%>
 
+<%@page import="mercafour.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario user = (Usuario)session.getAttribute("user");
+    String status;
+    if(user != null){
+        response.sendRedirect(""); // Poner la pagina principal de la aplicacion
+    }
+    
+    status = (String)request.getAttribute("status");
+    if(status == null){
+        status = "";
+    }
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,11 +28,13 @@
     <body>
         <h1>Mercafour</h1>
         <h2>Inicio de sesi&oacute;n</h2>
-        <form action="" method="post">
-            Usuario <input type="text" name="usuario"/><br/>
+        <form action="Login" method="post">
+            Email <input type="text" name="email"/><br/>
             Contrase&ntilde;a <input type="password" name="password"/><br/>
             <input type="submit" value="Iniciar Sesión"/>
+            <a href="registro.jsp">Registrarse</a>
         </form>
-        <a href="registro.jsp">Registrarse</a>
+        <p><%= status %></p>
+        
     </body>
 </html>

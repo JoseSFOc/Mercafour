@@ -19,7 +19,7 @@
             Nombre <input type="text" name="nombre"/><br/>
             Contrase&ntilde;a <input type="password" nombre="password"/><br/>
             <input type="submit" value="Registrarse"/>
+            <a href="login.jsp">Cancelar</a>
         </form>
-        <a href="login.jsp">Cancelar</a>
     </body>
 </html>
