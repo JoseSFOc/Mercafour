@@ -19,7 +19,7 @@ CREATE TABLE USUARIO (
     username VARCHAR(50),
     password VARCHAR(50),
     nombre VARCHAR(50),
-    email VARCHAR(50),
+    email VARCHAR(50) NOT NULL UNIQUE,
     PRIMARY KEY (id_usuario)
 );
 
