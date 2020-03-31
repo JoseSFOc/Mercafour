@@ -1,0 +1,10 @@
+
+
+JSPs:
+- Vista del administrador donde se ven 2 enlaces: usuario y productos
+- Listado de usuarios: se ven todos los usuarios
+- Listado de productos: se ven todos los productos en orden (tienen enlaces al perfil del usuario)
+- Perfil del usuario: se ven todos los productos del usuario
+Funcionalidades: 
+- Borrar productos
+- Borrar usuarios
