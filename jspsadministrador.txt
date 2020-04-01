@@ -8,3 +8,4 @@ JSPs:
 Funcionalidades: 
 - Borrar productos
 - Borrar usuarios
+- Editar datos del usuario (Ej: palabras clave?)
