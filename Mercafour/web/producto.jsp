@@ -13,23 +13,24 @@
     </head>
     <body>
         <h1>Página del producto</h1>
-        <form method="" action="comentario">
-            Comentario:
-            <textarea id="comentario" rows="4" cols="50">
-            Introduce un comentario (300 caracteres máximo).
-            </textarea>
+        <h2>Imagen</h2>
+        <form method="" action="ProductoComentar">
+            Comentario:<br/>
+            <textarea id="comentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
+            </textarea><br/>
             <br/>
-            <button>"Enviar comentario" </button>
+            <button>Enviar comentario</button>
+            <br/><br/>
         </form>
-        <form method="" action="valoracion">
+        <form method="" action="ProductoValorar">
             Valoración:
             <input type="radio" name="valoracion" value="1" />1
             <input type="radio" name="valoracion" value="2" />2
             <input type="radio" name="valoracion" value="3" />3
             <input type="radio" name="valoracion" value="4" />4
             <input type="radio" name="valoracion" value="5" />5
-            <br/>
-            <button>"Enviar valoración" </button>
+            <br/><br/>
+            <button>Enviar valoración</button>
         </form>
     </body>
 </html>
