@@ -12,10 +12,10 @@
         <title>Menú de Productos</title>
     </head>
     <body>
-        <a href="ProductoCrear">Añadir Producto</a></br>
-        <a href="ProductoBorrar">Borrar Producto</a></br>
-        <a href="ProductoEditar">Modificar Producto</a></br>
+        <a href="ProductosCrear">Añadir Producto</a></br>
+        <a href="ProductosBorrar">Borrar Producto</a></br>
+        <a href="ProductosEditar">Modificar Producto</a></br>
         <a href="verProducto">Ver Producto</a></br>
-        <a href="listarProductos">Listar Productos</a>
-    </body>
+        <a href="ProductosListar">Listar Productos</a>
+    </body> 
 </html>

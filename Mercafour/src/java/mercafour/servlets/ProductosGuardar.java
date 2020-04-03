@@ -29,8 +29,8 @@ import mercafour.entity.Usuario;
  *
  * @author josem
  */
-@WebServlet(name = "ProductoGuardar", urlPatterns = {"/ProductoGuardar"})
-public class ProductoGuardar extends HttpServlet {
+@WebServlet(name = "ProductosGuardar", urlPatterns = {"/ProductosGuardar"})
+public class ProductosGuardar extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
