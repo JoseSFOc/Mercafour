@@ -4,6 +4,7 @@
     Author     : Marco Hurtado
 --%>
 
+<%@page import="mercafour.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -96,6 +97,17 @@
                         <th>Imagen</th>
                         <th>Propietario</th>
                         <th>Categoría</th>
+                        <%
+                            Usuario user = (Usuario)session.getAttribute("user");
+                            if(user.getAdministrador()){ //si el usuario es administrador aparecen las columnas de borrar y editar
+                        %>
+                        <th>Borrar</th>
+                        <th>Modificar</th>
+                        <%
+                            }
+                        %>
+                        
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +122,15 @@
                         <td><%=2%></td>
                         <td><%=2%></td>
                         <td><%=2%></td>
+                        <%
+                            //if(user.getAdministrador()){ //Si el usuario es administrador, se le añaden dos columnas para editar y borrar los productos listados
+                        %>
+                           <!-- <td><a href="BorrarProducto?id=<%=// producto.getIdProducto()%>">Borrar</a></td> 
+                           // <td><a href="EditarProducto?id=<%=// producto.getIdProducto()%>">Editar</a></td>   -->                               
+                        <%
+                            //}
+                        %>
+                        
                     </tr>
                     <%
                        // }
