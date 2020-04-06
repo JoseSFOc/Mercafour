@@ -92,7 +92,7 @@ public class ProductosService {
                 LOG.log(Level.SEVERE, "No existe el usuario");
                 return false;
             } else {
-                SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 //ComentarioDTO comentario = new ComentarioDTO();
                 Comentario comentario = new Comentario();
                 comentario.setTexto(texto);
