@@ -4,6 +4,12 @@
     Author     : Marco Hurtado
 --%>
 
+<%@page import="java.text.DateFormat"%>
+<%@page import="mercafour.dto.ProductoDTO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="mercafour.entity.Producto"%>
+<%@page import="mercafour.entity.Categoria"%>
+<%@page import="java.util.List"%>
 <%@page import="mercafour.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +18,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Últimos productos</title>
     </head>
+    <%
+        List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
+        List<Categoria> listaCategorias = (List)request.getAttribute("listaCategorias");
+        List<ProductoDTO> listaProductos = (List)request.getAttribute("listaProductos");
+        
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        /*String str_filtro_supermercado = request.getParameter("filtro_supermercado");
+        String str_filtro_supermercado = request.getParameter("filtro_supermercado");
+        String str_filtro_nombre = request.getParameter("filtro_nombre");
+        if (str_filtro_nombre == null) {
+            str_filtro_nombre = "";
+        }*/
+    %>
     <body>
         <h1>Últimos productos</h1>
         <form action="ProductosListar">
@@ -112,16 +132,17 @@
                 </thead>
                 <tbody>
                     <%
-                        //for(int j = 0 ; j<5; j++){
+                        for(ProductoDTO p: listaProductos){
                             
                     %>
                     <tr>
-                        <td><%=1%></td>
-                        <td><%=2%></td>
-                        <td><%=2%></td>
-                        <td><%=2%></td>
-                        <td><%=2%></td>
-                        <td><%=2%></td>
+                        <td><%=p.getNombre()%></td>
+                        <td><%=p.getPrecio()%></td>
+                        <td><%=DateFormat.getInstance().format(p.getFecha())%></td>
+                        <td><%=p.getImagen()%></td>
+                        <td><%=p.getPropietario().getNombre()%></td>
+                        <td><%=p.getCategoria()%></td>
+                        <td><a href="ProductosVer?id=<%= p.getProductoId() %>">Ver producto</a></td>
                         <%
                             //if(user.getAdministrador()){ //Si el usuario es administrador, se le añaden dos columnas para editar y borrar los productos listados
                         %>
@@ -133,7 +154,7 @@
                         
                     </tr>
                     <%
-                       // }
+                        }
                     %>
                 </tbody>
             </table>
