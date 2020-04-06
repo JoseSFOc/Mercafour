@@ -4,6 +4,9 @@
     Author     : Marco Hurtado
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="mercafour.dto.ComentarioDTO"%>
+<%@page import="mercafour.dto.ProductoDTO"%>
 <%@page import="mercafour.entity.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,10 +16,11 @@
         <title>Producto</title>
     </head>
     <%
-        Producto producto;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        ProductoDTO producto;
         String categoria = "", imagen = "";
 
-        producto = (Producto) request.getAttribute("producto");
+        producto = (ProductoDTO) request.getAttribute("producto");
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
         }
@@ -37,15 +41,14 @@
         <h2>Imagen</h2>
         <img src="<%= imagen %>"> 
 
-        <form method="" action="ProductoComentar">
+        <form method="" action="ProductoValorar">
             Comentario:<br/>
             <textarea id="comentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
             </textarea><br/>
             <br/>
             <button>Enviar comentario</button>
             <br/><br/>
-        </form>
-        <form method="" action="ProductoValorar">
+            
             Valoración:
             <input type="radio" name="valoracion" value="1" />1
             <input type="radio" name="valoracion" value="2" />2
@@ -55,5 +58,27 @@
             <br/><br/>
             <button>Enviar valoración</button>
         </form>
+        <h2>Comentarios</h2>
+      
+        <%
+            if(producto.getComentarios()==null || producto.getComentarios().isEmpty()){
+        %>
+         <p>En la actualidad no hay ningun comentario para este producto</p>
+        <%
+            }else{
+                for (ComentarioDTO com : producto.getComentarios()) {
+        %>
+        <h3>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%></h3><br/>
+        <h3>Valoración: <%=com.getValoracion()%>/5</h3><br/>
+        <p><%=com.getTexto()%></p>
+        <br/>
+        <br/>
+        <%
+                }
+        %>
+        <%
+            }
+        %>
+        
     </body>
 </html>
