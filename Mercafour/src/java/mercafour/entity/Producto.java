@@ -7,6 +7,7 @@ package mercafour.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -28,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mercafour.dto.ComentarioDTO;
 import mercafour.dto.ProductoDTO;
 
 /**
@@ -194,9 +196,13 @@ public class Producto implements Serializable {
     }
     
     public ProductoDTO getDTO(){
+        List<ComentarioDTO> comentariosDTO = new ArrayList<>();
+        for (Comentario c : this.comentarioList) {
+            comentariosDTO.add(c.getDTO());
+        }
         ProductoDTO productoDTO = new ProductoDTO();
         productoDTO.setCategoria(this.categoria);
-        productoDTO.setComentarios(this.comentarioList);
+        productoDTO.setComentarios(comentariosDTO);
         productoDTO.setDescripcion(this.descripcion);
         productoDTO.setFecha(this.fecha);
         productoDTO.setImagen(this.imagen);
@@ -204,7 +210,7 @@ public class Producto implements Serializable {
         productoDTO.setPalabrasClave(this.palabraClaveList);
         productoDTO.setPrecio(this.precio);
         productoDTO.setProductoId(this.idProducto);
-        productoDTO.setPropietario(this.propietario); 
+        productoDTO.setPropietario(this.propietario.getDTO()); 
         return productoDTO;
     }
     
