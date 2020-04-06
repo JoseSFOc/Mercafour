@@ -24,8 +24,10 @@ import mercafour.entity.Usuario;
  */
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
+
     @EJB
     private UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,32 +39,43 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String usuario = request.getParameter("email");
-        String password = request.getParameter("password");
-        String status;
-        String redirect = "login.jsp";
-        if (usuario.equals("") || password.equals("")){
-            status = "Introduzaca un usario y una clave para continuar.";
-            request.setAttribute("status", status);
-        }else{
-            Usuario user = this.usuarioFacade.findByEmail(usuario);
-            if(user == null || !password.equals(user.getPassword())){
-                status = "Datos incorrectos";
-                request.setAttribute("status", status);
+        HttpSession session = request.getSession();
+        Usuario pre = (Usuario) session.getAttribute("user");
+
+        if (pre != null) {
+            if(pre.getAdministrador()){
+                response.sendRedirect("menuAdministrador.jsp");
             }else{
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                if(user.getAdministrador()){
-                    redirect = ""; //Pagina de inicio de admins
-                }else{
-                    redirect = ""; //Pagina de inicio de usuarios
+                response.sendRedirect("menuProductoVendedor.jsp");
+            }
+        } else {
+
+            String usuario = request.getParameter("email");
+            String password = request.getParameter("password");
+            String status;
+            String redirect = "login.jsp";
+            if (usuario.equals("") || password.equals("")) {
+                status = "Introduzaca un usario y una clave para continuar.";
+                request.setAttribute("status", status);
+            } else {
+                Usuario user = this.usuarioFacade.findByEmail(usuario);
+                if (user == null || !password.equals(user.getPassword())) {
+                    status = "Datos incorrectos";
+                    request.setAttribute("status", status);
+                } else {
+                    session.setAttribute("user", user);
+                    if (user.getAdministrador()) {
+                        redirect = ""; //Pagina de inicio de admins
+                    } else {
+                        redirect = ""; //Pagina de inicio de usuarios
+                    }
                 }
             }
+
+            RequestDispatcher rd = request.getRequestDispatcher(redirect);
+            rd.forward(request, response);
         }
-        
-        RequestDispatcher rd = request.getRequestDispatcher(redirect);
-        rd.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

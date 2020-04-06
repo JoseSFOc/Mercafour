@@ -43,9 +43,9 @@ public class Registro extends HttpServlet {
         Usuario user = (Usuario) session.getAttribute("user");
         if (user != null) {
             if (user.getAdministrador()) {
-                response.sendRedirect(""); //Pagina principal de admin
+                response.sendRedirect("menuAdministrador.jsp"); //Pagina principal de admin
             } else {
-                response.sendRedirect(""); //Pagina principal de usuario
+                response.sendRedirect("menuProductoVendedor.jsp"); //Pagina principal de usuario
             }
         } else {
 
