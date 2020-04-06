@@ -5,7 +5,14 @@
  */
 package mercafour.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import mercafour.dao.ProductoFacade;
+import mercafour.dto.ProductoDTO;
+import mercafour.entity.Producto;
 
 /**
  *
@@ -13,7 +20,29 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ProductosService {
+    
+    private static final Logger LOG = Logger.getLogger(ProductosService.class.getName());
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private ProductoFacade productoFacade;
+    
+    protected List<ProductoDTO> convertToDTO (List<Producto> listaProductos) {
+        List<ProductoDTO> listaDTO = null;
+        if (listaProductos != null) {
+            listaDTO = new ArrayList<>();
+            for (Producto producto: listaProductos) {
+                listaDTO.add(producto.getDTO());
+            }
+        }
+        return listaDTO;
+    }
+    
+    public List<ProductoDTO> searchByDateDesc () {
+        List<Producto> productos = this.productoFacade.findByDateDesc();
+        List<ProductoDTO> rdo = new ArrayList<>();
+        for (Producto producto : productos) {
+            rdo.add(producto.getDTO());
+        }
+        return rdo;
+    }
 }
