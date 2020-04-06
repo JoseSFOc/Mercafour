@@ -18,11 +18,12 @@
     <%
         SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         ProductoDTO producto;
-        String categoria = "", imagen = "";
+        String categoria = "", imagen = "", productoId = "";
 
         producto = (ProductoDTO) request.getAttribute("producto");
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
+            productoId = producto.getProductoId().toString();
         }
         if (producto.getImagen()!= null) {
             imagen = producto.getImagen();
@@ -42,8 +43,9 @@
         <img src="<%= imagen %>"> 
 
         <form method="" action="ProductoValorar">
+            <input type="hidden" name="productoId" value="<%= productoId %>" />
             Comentario:<br/>
-            <textarea id="comentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
+            <textarea id="comentario" name="textoComentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
             </textarea><br/>
             <br/>
             <button>Enviar comentario</button>
