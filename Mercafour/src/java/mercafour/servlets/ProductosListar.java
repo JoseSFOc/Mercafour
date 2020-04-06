@@ -60,7 +60,8 @@ public class ProductosListar extends HttpServlet {
             List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
             List<Categoria> listaCategorias = this.categoriaFacade.findAll();
             List<ProductoDTO> listaProductos = this.productosService.searchByUser(usuario);
-            
+            //si no hay filtros hay que listar por orden descendente
+            //List<ProductoDTO> listaProductos = this.productosService.searchByDateDesc();
             request.setAttribute("listaUsuarios", listaUsuarios);
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductos", listaProductos);
