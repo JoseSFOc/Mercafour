@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mercafour.dto.ProductoDTO;
 
 /**
  *
@@ -190,6 +191,21 @@ public class Producto implements Serializable {
     @Override
     public String toString() {
         return "mercafour.entity.Producto[ idProducto=" + idProducto + " ]";
+    }
+    
+    public ProductoDTO getDTO(){
+        ProductoDTO productoDTO = new ProductoDTO();
+        productoDTO.setCategoria(this.categoria);
+        productoDTO.setComentarios(this.comentarioList);
+        productoDTO.setDescripcion(this.descripcion);
+        productoDTO.setFecha(this.fecha);
+        productoDTO.setImagen(this.imagen);
+        productoDTO.setNombre(this.nombre);
+        productoDTO.setPalabrasClave(this.palabraClaveList);
+        productoDTO.setPrecio(this.precio);
+        productoDTO.setProductoId(this.idProducto);
+        productoDTO.setPropietario(this.propietario); 
+        return productoDTO;
     }
     
 }
