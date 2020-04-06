@@ -27,8 +27,8 @@ public class ProductoDTO {
     private String imagen;
     private List<PalabraClave> palabrasClave;
     private Categoria categoria;
-    private Usuario propietario;
-    private List<Comentario> comentarios;
+    private UsuarioDTO propietario;
+    private List<ComentarioDTO> comentarios;
     
     public ProductoDTO(){}
 
@@ -96,19 +96,19 @@ public class ProductoDTO {
         this.categoria = categoria;
     }
 
-    public Usuario getPropietario() {
+    public UsuarioDTO getPropietario() {
         return propietario;
     }
 
-    public void setPropietario(Usuario propietario) {
+    public void setPropietario(UsuarioDTO propietario) {
         this.propietario = propietario;
     }
 
-    public List<Comentario> getComentarios() {
+    public List<ComentarioDTO> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<ComentarioDTO> comentarios) {
         this.comentarios = comentarios;
     }
 }
