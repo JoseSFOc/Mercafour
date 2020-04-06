@@ -16,7 +16,7 @@
         <title>Producto</title>
     </head>
     <%
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         ProductoDTO producto;
         String categoria = "", imagen = "";
 
