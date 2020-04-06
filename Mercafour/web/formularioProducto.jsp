@@ -38,13 +38,13 @@
     <body>
         <h1>Introduzca los datos del producto</h1>
         
-        <form action="ProductosGuardar">
+        <form method="post" action="ProductosGuardar">
             <input type="hidden" name="idProducto" value="<%= idProducto %>" />
             
             Nombre: <input type="text" name="nombre" value="<%= nombre %>"/></br>
             Descripcion: <input type="text" name="descripcion" value="<%= descripcion %>"/></br>
             Precio: <input type="number" placeholder="1.00" step="0.01" min="0" max="1000000" name="precio" value="<%= precio %>"/></br>
-            Imagen: <input type="image" name="imagen" value=""/></br>
+            Imagen: <input type="file" name="imagen" value="" accept="image/*"/></br>
             Categoria: 
             <select name="categoria">
                 <%

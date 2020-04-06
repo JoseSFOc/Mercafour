@@ -45,11 +45,8 @@ public class ProductosCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        // Pruebas 
-        session.setAttribute("usuario", new Usuario(1));
-        
-        if (session.getAttribute("usuario") == null) {
+                
+        if (session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");            
         } else {        
             List<Usuario> listaUsuarios = this.usuarioFacade.findAll();

@@ -14,24 +14,29 @@
     </head>
     <%
         Producto producto;
-        String categoria = "";
-        
-        producto = (Producto)request.getAttribute("producto");        
-        if(producto.getCategoria() != null){
+        String categoria = "", imagen = "";
+
+        producto = (Producto) request.getAttribute("producto");
+        if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
+        }
+        if (producto.getImagen()!= null) {
+            imagen = producto.getImagen();
         }
     %>    
     <body>
         <h1>Página del producto</h1>
-        
-        Nombre: <%= producto.getNombre() %></br>
-        Descripcion: <%= producto.getDescripcion() %></br>
-        Precio: <%= producto.getPrecio().toString() %></br>
-        Fecha: <%= producto.getFecha().toString() %></br>
-        Propietario: <%= producto.getPropietario().getNombre() %></br>
-        Categoria: <%= categoria %></br>
-        
+
+        Nombre: <%= producto.getNombre()%></br>
+        Descripcion: <%= producto.getDescripcion()%></br>
+        Precio: <%= producto.getPrecio().toString()%></br>
+        Fecha: <%= producto.getFecha().toString()%></br>
+        Propietario: <%= producto.getPropietario().getNombre()%></br>
+        Categoria: <%= categoria%></br>
+
         <h2>Imagen</h2>
+        <img src="<%= imagen %>"> 
+
         <form method="" action="ProductoComentar">
             Comentario:<br/>
             <textarea id="comentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).

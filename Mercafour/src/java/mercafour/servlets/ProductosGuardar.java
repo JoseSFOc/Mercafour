@@ -52,13 +52,13 @@ public class ProductosGuardar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("usuario") == null) {
+        if (session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");
         } else {
             String str;
             Producto producto;
             boolean esCrear = false;
-            Usuario propietario = (Usuario) session.getAttribute("usuario");
+            Usuario propietario = (Usuario) session.getAttribute("user");
             Categoria categoria;
 
             str = request.getParameter("idProducto");
@@ -85,6 +85,9 @@ public class ProductosGuardar extends HttpServlet {
             producto.setFecha(new Date());
 
             // Imagen ?
+            str = request.getParameter("imagen");
+            producto.setImagen(str);
+            
             // Propietario
             producto.setPropietario(propietario);
 

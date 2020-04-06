@@ -19,9 +19,11 @@ import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
+import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
+import mercafour.service.ProductosService;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ProductosListar extends HttpServlet {
     @EJB 
     private CategoriaFacade categoriaFacade;
     @EJB
-    private ProductoFacade productoFacade;
+    private ProductosService productosService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,17 +52,14 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario usuario;
-
-        // Pruebas 
-        session.setAttribute("usuario", new Usuario(1));
         
-        usuario = (Usuario)session.getAttribute("usuario");
+        usuario = (Usuario)session.getAttribute("user");
         if(usuario == null){
             response.sendRedirect("login.jsp");
         } else {
             List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
             List<Categoria> listaCategorias = this.categoriaFacade.findAll();
-            List<Producto> listaProductos = this.productoFacade.findAll();
+            List<ProductoDTO> listaProductos = this.productosService.searchByUser(usuario);
             
             request.setAttribute("listaUsuarios", listaUsuarios);
             request.setAttribute("listaCategorias", listaCategorias);

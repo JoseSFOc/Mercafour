@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="mercafour.dto.ProductoDTO"%>
 <%@page import="mercafour.entity.Producto"%>
 <%@page import="mercafour.entity.Categoria"%>
 <%@page import="java.util.List"%>
@@ -18,7 +19,8 @@
     <%
         List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
         List<Categoria> listaCategorias = (List)request.getAttribute("listaCategorias");
-        List<Producto> listaProductos = (List)request.getAttribute("listaProductos");
+        List<ProductoDTO> listaProductos = (List)request.getAttribute("listaProductos");
+        Usuario user = (Usuario)session.getAttribute("user");
         String imagen = "", categoria = "";
     %>
     <body>
@@ -43,10 +45,10 @@
             <th>CATEGORIA</th>
         </tr>
         <%
-            for(Producto p : listaProductos){
+            for(ProductoDTO p : listaProductos){
         %>
         <tr>
-            <td><%= p.getIdProducto() %></td>
+            <td><%= p.getProductoId() %></td>
             <td><%= p.getNombre() %></td>
             <td><%= p.getDescripcion() %></td>
             <td><%= p.getPrecio() %></td>
@@ -54,9 +56,9 @@
             <td><%= imagen %></td>
             <td><%= p.getPropietario().getNombre() %></td>
             <td><%= categoria %></td>
-            <td><a href="ProductosVer?id=<%= p.getIdProducto()%>">Ver</a></td>
-            <td><a href="ProductosEditar?id=<%= p.getIdProducto()%>">Editar</a></td>
-            <td><a href="ProductosGuardar?id=<%= p.getIdProducto() %>">Borrar</a></td>   
+            <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
+            <td><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a></td>
+            <td><a href="ProductosBorrar?id=<%= p.getProductoId() %>">Borrar</a></td>   
         </tr>
         <%
             } // Cierre del for
