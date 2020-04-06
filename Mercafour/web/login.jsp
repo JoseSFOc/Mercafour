@@ -11,9 +11,9 @@
     String status;
     if(user != null){
         if(user.getAdministrador()){
-            response.sendRedirect(""); // Pagina principal admin
+            response.sendRedirect("menuAdministrador.jsp"); // Pagina principal admin
         }else{
-            response.sendRedirect(""); //Paquina principal usuario
+            response.sendRedirect("menuProductoVendedor.jsp"); //Paquina principal usuario
         }
     }
     

@@ -10,7 +10,11 @@
     Usuario user = (Usuario)session.getAttribute("user");
     String status = (String)request.getAttribute("status");
     if(user != null){
-        response.sendRedirect(""); //Pagina proncipal del usuario
+        if(user.getAdministrador()){
+            response.sendRedirect("menuAdministrador.jsp"); //Pagina proncipal del admin
+        }else{
+            response.sendRedirect("menuProductoVendedor.jsp"); //Pagina proncipal del usuario
+        }
     }
     
     if(status == null){

@@ -7,7 +7,6 @@ package mercafour.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,18 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mercafour.dao.UsuarioFacade;
 import mercafour.entity.Usuario;
 
 /**
  *
  * @author aleja
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,42 +35,14 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Usuario pre = (Usuario) session.getAttribute("user");
-
-        if (pre != null) {
-            if(pre.getAdministrador()){
-                response.sendRedirect("menuAdministrador.jsp");
-            }else{
-                response.sendRedirect("menuProductoVendedor.jsp");
-            }
-        } else {
-
-            String usuario = request.getParameter("email");
-            String password = request.getParameter("password");
-            String status;
-            String redirect = "login.jsp";
-            if (usuario.equals("") || password.equals("")) {
-                status = "Introduzaca un usario y una clave para continuar.";
-                request.setAttribute("status", status);
-            } else {
-                Usuario user = this.usuarioFacade.findByEmail(usuario);
-                if (user == null || !password.equals(user.getPassword())) {
-                    status = "Datos incorrectos";
-                    request.setAttribute("status", status);
-                } else {
-                    session.setAttribute("user", user);
-                    if (user.getAdministrador()) {
-                        redirect = ""; //Pagina de inicio de admins
-                    } else {
-                        redirect = ""; //Pagina de inicio de usuarios
-                    }
-                }
-            }
-
-            RequestDispatcher rd = request.getRequestDispatcher(redirect);
+        Usuario user = (Usuario)session.getAttribute("user");
+        if(user == null){
+            response.sendRedirect("login.jsp");
+        }else{
+            session.removeAttribute("user");
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
