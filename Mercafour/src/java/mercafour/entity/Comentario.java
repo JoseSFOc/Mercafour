@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import mercafour.dto.ComentarioDTO;
 
 /**
  *
@@ -136,6 +137,16 @@ public class Comentario implements Serializable {
     @Override
     public String toString() {
         return "mercafour.entity.Comentario[ comentarioPK=" + comentarioPK + " ]";
+    }
+    
+    public ComentarioDTO getDTO(){
+        ComentarioDTO commentDTO = new ComentarioDTO();
+        commentDTO.setAutor(this.usuario.getDTO());
+        commentDTO.setFecha(this.fecha);
+        commentDTO.setProducto(this.producto1.getDTO());
+        commentDTO.setTexto(this.texto);
+        commentDTO.setValoracion(this.valoracion);
+        return commentDTO;
     }
     
 }
