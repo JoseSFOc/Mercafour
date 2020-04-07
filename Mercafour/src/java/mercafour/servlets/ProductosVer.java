@@ -72,7 +72,7 @@ public class ProductosVer extends HttpServlet {
                     request.setAttribute("producto", producto);
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
-
+                    
                     RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
                     rd.forward(request, response);
                 }
