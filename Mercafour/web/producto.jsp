@@ -16,11 +16,13 @@
         <title>Producto</title>
     </head>
     <%
-        SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         ProductoDTO producto;
+        Producto p;
         String categoria = "", imagen = "", productoId = "";
 
-        producto = (ProductoDTO) request.getAttribute("producto");
+        p =  (Producto) request.getAttribute("producto");
+        producto = p.getDTO();
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
             productoId = producto.getProductoId().toString();
@@ -35,20 +37,18 @@
         Nombre: <%= producto.getNombre()%></br>
         Descripcion: <%= producto.getDescripcion()%></br>
         Precio: <%= producto.getPrecio().toString()%></br>
-        Fecha: <%= producto.getFecha().toString()%></br>
+        Fecha: <%= format.format(producto.getFecha())%></br>
         Propietario: <%= producto.getPropietario().getNombre()%></br>
         Categoria: <%= categoria%></br>
 
         <h2>Imagen</h2>
         <img src="<%= imagen %>"> 
 
-        <form method="" action="ProductoValorar">
+        <form method="" action="ProductosValorar">
             <input type="hidden" name="productoId" value="<%= productoId %>" />
             Comentario:<br/>
             <textarea id="comentario" name="textoComentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
             </textarea><br/>
-            <br/>
-            <button>Enviar comentario</button>
             <br/><br/>
             
             Valoración:
