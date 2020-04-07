@@ -49,11 +49,14 @@ public class ProductosValorar extends HttpServlet {
         } else {
             Usuario usuario = (Usuario)session.getAttribute("usuario");
             UsuarioDTO user = usuario.getDTO();
+            
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
             Date date = new Date();
-            this.productoservice.nuevoComentario(request.getParameter("productoId"), request.getParameter("textoComentario"),
+            String productoId = request.getParameter("productoId");
+            this.productoservice.nuevoComentario(productoId, request.getParameter("textoComentario"),
                     request.getParameter("valoracion"), user.getUsername(), format.format(date));
             
+            request.setAttribute("id", productoId);
             response.sendRedirect("ProductosVer");            
         } 
     }
