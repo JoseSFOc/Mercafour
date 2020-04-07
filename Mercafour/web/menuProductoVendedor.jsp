@@ -13,9 +13,6 @@
     </head>
     <body>
         <a href="ProductosCrear">Añadir Producto</a></br>
-        <a href="ProductosBorrar">Borrar Producto</a></br>
-        <a href="ProductosEditar">Modificar Producto</a></br>
-        <a href="verProducto">Ver Producto</a></br>
         <a href="ProductosListar">Listar Productos</a>
     </body> 
 </html>

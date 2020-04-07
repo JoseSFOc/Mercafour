@@ -5,19 +5,23 @@
  */
 package mercafour.service;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import mercafour.dao.CategoriaFacade;
 import mercafour.dao.ComentarioFacade;
 import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
 import mercafour.dto.ComentarioDTO;
 import mercafour.dto.ProductoDTO;
+import mercafour.entity.Categoria;
 import mercafour.entity.Comentario;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
@@ -33,12 +37,15 @@ public class ProductosService {
 
     @EJB
     private ProductoFacade productoFacade;
-    
+
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     @EJB
     private ComentarioFacade comentarioFacade;
+
+    @EJB
+    private CategoriaFacade categoriaFacade;
 
     protected List<ProductoDTO> convertToDTO(List<Producto> listaProductos) {
         List<ProductoDTO> listaDTO = null;
@@ -60,18 +67,63 @@ public class ProductosService {
         return rdo;
     }
 
-    public List<ProductoDTO> searchByUser(Usuario user){
+    public List<ProductoDTO> searchByUser(Usuario user) {
         List<Producto> productos = this.productoFacade.findAll();
         List<ProductoDTO> rdo = new ArrayList<>();
-        for(Producto producto : productos){
-            if(user.equals(producto.getPropietario())){
+        for (Producto producto : productos) {
+            if (user.equals(producto.getPropietario())) {
                 rdo.add(producto.getDTO());
             }
         }
         return rdo;
     }
-    
-    public boolean remove(String id) {   
+
+    public ProductoDTO searchById(String str) {
+        Producto producto = this.productoFacade.find(new Integer(str));
+        if (producto != null) {
+            return producto.getDTO();
+        } else {
+            return null;
+        }
+    }
+
+    public void createOrUpdate(String idProducto, String nombre, String descripcion,
+            String precio, String imagen, String idPropietario,
+            String idCategoria) {
+
+        Producto producto;
+        boolean esCrear = false;
+        Usuario propietario;
+        Categoria categoria;
+
+        if (idProducto == null || idProducto.isEmpty()) {
+            producto = new Producto(0);
+            esCrear = true;
+        } else {
+            producto = this.productoFacade.find(new Integer(idProducto));
+        }
+
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setPrecio(new BigDecimal(precio));
+        producto.setFecha(new Date());
+        producto.setImagen(imagen);
+
+        propietario = this.usuarioFacade.find(new Integer(idPropietario));
+        producto.setPropietario(propietario);
+
+        categoria = this.categoriaFacade.find(new Integer(idCategoria));
+        producto.setCategoria(categoria);
+
+        if (esCrear) {
+            this.productoFacade.create(producto);
+        } else {
+            this.productoFacade.edit(producto);
+        }
+
+    }
+
+    public boolean remove(String id) {
         Producto producto = this.productoFacade.find(new Integer(id));
         if (producto == null) { //Esta situación no debería darse
             LOG.log(Level.SEVERE, "No se ha encontrado el producto a borrar");
@@ -81,8 +133,8 @@ public class ProductosService {
             return true;
         }
     }
-    
-    public boolean nuevoComentario(String productoId, String texto, String valoracion, String autor, String fecha){
+
+    public boolean nuevoComentario(String productoId, String texto, String valoracion, String autor, String fecha) {
         Producto producto = this.productoFacade.find(new Integer(productoId));
         if (producto == null) { //Esta situación no debería darse
             LOG.log(Level.SEVERE, "No se ha encontrado el producto");
@@ -106,11 +158,11 @@ public class ProductosService {
                 //comentario.setProducto(producto.getDTO());
                 comentario.setProducto1(producto);
                 comentario.setValoracion(new Integer(valoracion));
-                
+
                 this.comentarioFacade.create(comentario);
                 return true;
             }
-            
+
         }
     }
 

@@ -21,9 +21,11 @@ import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
+import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
+import mercafour.service.ProductosService;
 
 /**
  *
@@ -33,7 +35,7 @@ import mercafour.entity.Usuario;
 public class ProductosVer extends HttpServlet {
 
     @EJB
-    private ProductoFacade productosFacade;
+    private ProductosService productosService;
     @EJB
     private CategoriaFacade categoriaFacade;
     @EJB
@@ -52,7 +54,7 @@ public class ProductosVer extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String str;
-        Producto producto;
+        ProductoDTO producto;
 
         if (session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");
@@ -61,7 +63,7 @@ public class ProductosVer extends HttpServlet {
             if (str == null || str.isEmpty()) {
                 response.sendRedirect("menuProductoVendedor.jsp");
             } else {
-                producto = this.productosFacade.find(new Integer(str));
+                producto = this.productosService.searchById(str);
 
                 if (producto == null) {
                     response.sendRedirect("menuProductoVendedor.jsp");
@@ -72,7 +74,7 @@ public class ProductosVer extends HttpServlet {
                     request.setAttribute("producto", producto);
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
-                    
+
                     RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
                     rd.forward(request, response);
                 }

@@ -6,7 +6,6 @@
 package mercafour.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,7 +54,7 @@ public class Login extends HttpServlet {
             String status;
             String redirect = "login.jsp";
             if (usuario.equals("") || password.equals("")) {
-                status = "Introduzaca un usario y una clave para continuar.";
+                status = "Introduzca un usuario y una clave para continuar.";
                 request.setAttribute("status", status);
             } else {
                 Usuario user = this.usuarioFacade.findByEmail(usuario);
@@ -65,9 +64,9 @@ public class Login extends HttpServlet {
                 } else {
                     session.setAttribute("user", user);
                     if (user.getAdministrador()) {
-                        redirect = ""; //Pagina de inicio de admins
+                        redirect = "menuAdministrador.jsp"; //Pagina de inicio de admins
                     } else {
-                        redirect = ""; //Pagina de inicio de usuarios
+                        redirect = "menuProductoVendedor.jsp"; //Pagina de inicio de usuarios
                     }
                 }
             }
