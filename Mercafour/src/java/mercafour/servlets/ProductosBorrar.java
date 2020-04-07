@@ -24,7 +24,7 @@ import mercafour.service.ProductosService;
 public class ProductosBorrar extends HttpServlet {
     
     @EJB
-    private ProductosService prodcutosService;
+    private ProductosService productosService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,9 +47,9 @@ public class ProductosBorrar extends HttpServlet {
             if(str == null){
                 response.sendRedirect("menuProductoVendedor.jsp");
             } else {
-                boolean ok = this.prodcutosService.remove(str);
+                boolean ok = this.productosService.remove(str);
                 if(ok){
-                    response.sendRedirect("productosListado.jsp");
+                    response.sendRedirect("ProductosListar");
                 } else {
                     response.sendRedirect("menuProductoVendedor.jsp");
                 }

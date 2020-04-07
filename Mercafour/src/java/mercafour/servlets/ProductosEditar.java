@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,11 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
-import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
 import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
-import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
 import mercafour.service.ProductosService;
 
@@ -31,15 +28,15 @@ import mercafour.service.ProductosService;
  *
  * @author josem
  */
-@WebServlet(name = "ProductosVer", urlPatterns = {"/ProductosVer"})
-public class ProductosVer extends HttpServlet {
+@WebServlet(name = "ProductosEditar", urlPatterns = {"/ProductosEditar"})
+public class ProductosEditar extends HttpServlet {
 
     @EJB
     private ProductosService productosService;
     @EJB
-    private CategoriaFacade categoriaFacade;
-    @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
+    private CategoriaFacade categoriaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,20 +50,21 @@ public class ProductosVer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String str;
         ProductoDTO producto;
+        String str;
 
-        if (session.getAttribute("user") == null) {
+        if ((Usuario) session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");
         } else {
             str = request.getParameter("id");
-            if (str == null || str.isEmpty()) {
-                response.sendRedirect("menuProductoVendedor.jsp");
+
+            if (str == null) {
+                response.sendRedirect("menu.jsp");
             } else {
                 producto = this.productosService.searchById(str);
 
                 if (producto == null) {
-                    response.sendRedirect("menuProductoVendedor.jsp");
+                    response.sendRedirect("menu.jsp");
                 } else {
                     List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
                     List<Categoria> listaCategorias = this.categoriaFacade.findAll();
@@ -75,12 +73,13 @@ public class ProductosVer extends HttpServlet {
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
 
-                    RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("formularioProducto.jsp");
                     rd.forward(request, response);
                 }
-
             }
+
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

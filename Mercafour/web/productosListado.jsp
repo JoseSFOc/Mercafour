@@ -21,7 +21,6 @@
         List<Categoria> listaCategorias = (List)request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List)request.getAttribute("listaProductos");
         Usuario user = (Usuario)session.getAttribute("user");
-        String imagen = "", categoria = "";
     %>
     <body>
         <h1>Listado de Productos</h1>
@@ -53,9 +52,9 @@
             <td><%= p.getDescripcion() %></td>
             <td><%= p.getPrecio() %></td>
             <td><%= p.getFecha().toString() %></td>
-            <td><%= imagen %></td>
+            <td><%= p.getImagen() %></td>
             <td><%= p.getPropietario().getNombre() %></td>
-            <td><%= categoria %></td>
+            <td><%= p.getCategoria().getNombre() %></td>
             <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
             <td><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a></td>
             <td><a href="ProductosBorrar?id=<%= p.getProductoId() %>">Borrar</a></td>   
