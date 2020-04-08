@@ -44,10 +44,10 @@ public class ProductosValorar extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+        if (session.getAttribute("user")==null) { // Se ha llamado al servlet sin haberse autenticado
             response.sendRedirect("login.jsp");            
         } else {
-            Usuario usuario = (Usuario)session.getAttribute("usuario");
+            Usuario usuario = (Usuario)session.getAttribute("user");
             UsuarioDTO user = usuario.getDTO();
             
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
