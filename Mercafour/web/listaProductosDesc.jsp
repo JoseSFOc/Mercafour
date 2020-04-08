@@ -22,7 +22,7 @@
         List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
         List<Categoria> listaCategorias = (List)request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List)request.getAttribute("listaProductos");
-        
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         /*String str_filtro_supermercado = request.getParameter("filtro_supermercado");
@@ -119,7 +119,7 @@
                         <th>Categoría</th>
                         <%
                             Usuario user = (Usuario)session.getAttribute("user");
-                            if(user.getAdministrador()){ //si el usuario es administrador aparecen las columnas de borrar y editar
+                            if(user != null && user.getAdministrador()){ //si el usuario es administrador aparecen las columnas de borrar y editar
                         %>
                         <th>Borrar</th>
                         <th>Modificar</th>
@@ -144,12 +144,12 @@
                         <td><%=p.getCategoria()%></td>
                         <td><a href="ProductosVer?id=<%= p.getProductoId() %>">Ver producto</a></td>
                         <%
-                            //if(user.getAdministrador()){ //Si el usuario es administrador, se le añaden dos columnas para editar y borrar los productos listados
+                            if(user != null && user.getAdministrador()){ //Si el usuario es administrador, se le añaden dos columnas para editar y borrar los productos listados
                         %>
-                           <!-- <td><a href="BorrarProducto?id=<%=// producto.getIdProducto()%>">Borrar</a></td> 
-                           // <td><a href="EditarProducto?id=<%=// producto.getIdProducto()%>">Editar</a></td>   -->                               
+                           <td><a href="ProductosBorrar?id=<%= p.getProductoId()%>">Borrar</a></td> 
+                           <td><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a></td> 
                         <%
-                            //}
+                            }
                         %>
                         
                     </tr>

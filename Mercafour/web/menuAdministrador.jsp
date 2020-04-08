@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="listaUsuarios"> Lista de usuarios </a>
-        <a href="listaProductosDesc">Lista de productos </a>
+        <a href="listaUsuarios.jsp"> Lista de usuarios </a></br>
+        <a href="ProductosListar">Lista de productos </a>
     </body>
 </html>
