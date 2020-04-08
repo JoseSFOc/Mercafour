@@ -23,6 +23,7 @@ import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
 import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
+import mercafour.entity.Comentario;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
 import mercafour.service.ProductosService;
@@ -40,6 +41,7 @@ public class ProductosVer extends HttpServlet {
     private CategoriaFacade categoriaFacade;
     @EJB
     private UsuarioFacade usuarioFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -70,10 +72,12 @@ public class ProductosVer extends HttpServlet {
                 } else {
                     List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
                     List<Categoria> listaCategorias = this.categoriaFacade.findAll();
-
-                    request.setAttribute("producto", producto);
+                    List<Comentario> listaComentarios = this.productosService.buscarComentarios(str);
+                    
+                    request.setAttribute("listaComentarios", listaComentarios);
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
+                   
 
                     RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
                     rd.forward(request, response);
