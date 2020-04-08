@@ -143,7 +143,7 @@ public class Comentario implements Serializable {
         ComentarioDTO commentDTO = new ComentarioDTO();
         commentDTO.setAutor(this.usuario.getDTO());
         commentDTO.setFecha(this.fecha);
-        commentDTO.setProducto(this.producto1.getDTO());
+        commentDTO.setProducto(this.comentarioPK.getProducto());
         commentDTO.setTexto(this.texto);
         commentDTO.setValoracion(this.valoracion);
         return commentDTO;
