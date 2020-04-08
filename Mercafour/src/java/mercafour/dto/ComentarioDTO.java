@@ -16,7 +16,7 @@ public class ComentarioDTO {
     private Integer valoracion;
     private Date fecha;
     private UsuarioDTO autor;
-    private ProductoDTO producto;
+    private int producto;
     
     public ComentarioDTO(){}
 
@@ -52,11 +52,11 @@ public class ComentarioDTO {
         this.autor = autor;
     }
 
-    public ProductoDTO getProducto() {
+    public int getProducto() {
         return producto;
     }
 
-    public void setProducto(ProductoDTO producto) {
+    public void setProducto(int producto) {
         this.producto = producto;
     }
 }
