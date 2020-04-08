@@ -53,8 +53,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Usuario usuario = null;
         List<Usuario> lista;
         
+        q = this.getEntityManager().createQuery("SELECT u FROM Usuario u WHERE u.username LIKE :nombre");
+        q.setParameter("nombre", "%" + user + "%"); // Los % se ponen delante y detrás para indicar que la cadena
+                                                      // de caracteres debe estar incluida en el nombre.
+        //return q.getResultList();  
+        /*
         q = this.getEntityManager().createNamedQuery("Usuario.findByName");
-        q.setParameter("nombre", user);
+        q.setParameter("nombre", user);*/
         lista = q.getResultList();
         
         if(lista!= null && !lista.isEmpty()){
