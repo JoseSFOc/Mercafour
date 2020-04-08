@@ -21,14 +21,12 @@
         Producto p;
         String categoria = "", imagen = "", productoId = "";
 
-        p =  (Producto) request.getAttribute("producto");
-        producto = p.getDTO();
+        //p =  (Producto) request.getAttribute("producto");
+        //producto = p.getDTO();
+        producto = (ProductoDTO) request.getAttribute("producto");
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
             productoId = producto.getProductoId().toString();
-        }
-        if (producto.getImagen()!= null) {
-            imagen = producto.getImagen();
         }
     %>    
     <body>
@@ -41,9 +39,21 @@
         Propietario: <%= producto.getPropietario().getNombre()%></br>
         Categoria: <%= categoria%></br>
 
-        <h2>Imagen</h2>
+        <h2>Imagen</h2><br/>
+        <%
+            if (producto.getImagen()== null || producto.getImagen().isEmpty()) {
+                
+        %>
+        <p>Este producto no tiene imagen.</p>
+        <%
+            }else{
+                imagen = producto.getImagen();
+        %>                
         <img src="<%= imagen %>"> 
-
+        %>
+        <%
+            }
+        %>
         <form method="" action="ProductosValorar">
             <input type="hidden" name="productoId" value="<%= productoId %>" />
             Comentario:<br/>
