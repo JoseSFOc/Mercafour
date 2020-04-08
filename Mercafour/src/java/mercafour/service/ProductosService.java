@@ -23,6 +23,7 @@ import mercafour.dto.ComentarioDTO;
 import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Comentario;
+import mercafour.entity.ComentarioPK;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
 
@@ -144,12 +145,17 @@ public class ProductosService {
                 LOG.log(Level.SEVERE, "No existe el usuario");
                 return false;
             } else {
+                Usuario u = usuarioFacade.findByName(autor);
+                ComentarioPK c= new ComentarioPK();
+                c.setAutor(u.getIdUsuario());
+                c.setProducto(producto.getIdProducto());
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 //ComentarioDTO comentario = new ComentarioDTO();
                 Comentario comentario = new Comentario();
+                comentario.setComentarioPK(c);
                 comentario.setTexto(texto);
                 //comentario.setAutor(this.usuarioFacade.findByName(autor).getDTO());
-                comentario.setUsuario(usuarioFacade.findByName(autor));
+                comentario.setUsuario(u);
                 try {
                     comentario.setFecha(format.parse(fecha));
                 } catch (ParseException ex) {
@@ -165,5 +171,21 @@ public class ProductosService {
 
         }
     }
+    
+    public List<Comentario> buscarComentarios(String productoId){
+        List<Comentario> lista = null;
+        Producto producto = this.productoFacade.find(new Integer(productoId));
+        if (producto == null) {
+            LOG.log(Level.SEVERE, "No existe el producto");
+        } else {
+            lista = this.comentarioFacade.findByProductId(productoId);
+        }
+        return lista;
+    }
+    
+    /* Búqueda con filtros:
+    un método en facade para cada filtro individual
+    un método de búsqueda con filtros que tome array de palabras (1 por filtro) y vaya cada método individual.
+    */
 
 }
