@@ -77,7 +77,7 @@ public class ProductosVer extends HttpServlet {
                     request.setAttribute("listaComentarios", listaComentarios);
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
-                   
+                    request.setAttribute("producto", producto);
 
                     RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
                     rd.forward(request, response);
