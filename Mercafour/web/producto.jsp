@@ -27,6 +27,8 @@
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
             productoId = producto.getProductoId().toString();
+        }else{
+            System.out.println("´");
         }
     %>    
     <body>
