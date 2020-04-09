@@ -74,7 +74,7 @@ public class Registro extends HttpServlet {
                     nUser.setPassword(password);
                     
                     this.usurarioFacade.create(nUser);
-                    redirect = ""; //Menu principal del los usuarios normales
+                    redirect = "menuProductoVendedor.jsp"; //Menu principal del los usuarios normales
                     session.setAttribute("user", nUser);
                 } catch (RuntimeException e) {
                     status = "Error al crear";

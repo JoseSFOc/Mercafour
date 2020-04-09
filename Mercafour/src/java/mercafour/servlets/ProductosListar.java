@@ -52,6 +52,14 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario usuario;
+        int modo = 0;
+        
+        // 0 - solo los productos del usuario
+        // 1 - todos los productos en orden desc
+        
+        if(request.getParameter("modo") != null) {
+            modo = Integer.parseInt(request.getParameter("modo"));
+        }
         
         usuario = (Usuario)session.getAttribute("user");
         if(usuario == null){
@@ -59,9 +67,14 @@ public class ProductosListar extends HttpServlet {
         } else {
             List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
             List<Categoria> listaCategorias = this.categoriaFacade.findAll();
-            List<ProductoDTO> listaProductos = this.productosService.searchByUser(usuario);
-            //si no hay filtros hay que listar por orden descendente
-            //List<ProductoDTO> listaProductos = this.productosService.searchByDateDesc();
+            List<ProductoDTO> listaProductos;
+            
+            if(modo == 0){
+                listaProductos = this.productosService.searchByUser(usuario);
+            } else /*if(modo == 1)*/{
+                listaProductos = this.productosService.searchByDateDesc();
+            }
+
             request.setAttribute("listaUsuarios", listaUsuarios);
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductos", listaProductos);

@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
 <%@page import="mercafour.entity.Producto"%>
 <%@page import="mercafour.entity.Categoria"%>
@@ -20,7 +21,7 @@
         List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
         List<Categoria> listaCategorias = (List)request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List)request.getAttribute("listaProductos");
-        Usuario user = (Usuario)session.getAttribute("user");
+        UsuarioDTO user = ((Usuario)session.getAttribute("user")).getDTO();
     %>
     <body>
         <h1>Listado de Productos</h1>
@@ -56,8 +57,12 @@
             <td><%= p.getPropietario().getNombre() %></td>
             <td><%= p.getCategoria().getNombre() %></td>
             <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
+            <% 
+                if(p.getPropietario().equals(user)){
+            %>
             <td><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a></td>
             <td><a href="ProductosBorrar?id=<%= p.getProductoId() %>">Borrar</a></td>   
+            <%  } %>
         </tr>
         <%
             } // Cierre del for
@@ -67,6 +72,6 @@
     <%  
         } // Cierre if
     %>
-    
+        <a href="menuProductoVendedor.jsp">Volver al menú</a>
     </body>
 </html>
