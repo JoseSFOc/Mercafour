@@ -13,6 +13,7 @@
     </head>
     <body>
         <a href="ProductosCrear">Añadir Producto</a></br>
-        <a href="ProductosListar">Listar Productos</a>
+        <a href="ProductosListar?modo=0">Mis Productos</a></br>
+        <a href="ProductosListar?modo=1">Listar Productos</a>
     </body> 
 </html>
