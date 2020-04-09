@@ -34,7 +34,7 @@
     %>
     <body>
         <h1>Últimos productos</h1>
-        <form action="ProductosListar">
+        <form action="productosFiltrarPrueba">
             Buscar por: <br/><br/>
             Fecha
             <select name="filtro_dia">
@@ -72,7 +72,7 @@
             <br/>
             <br/>
             Hora:
-            <select name="filtro_anyo">
+            <select name="filtro_hora">
                 <option value="">-Todos-</option>
                 <%
                     for(int i = 0 ;  i< 24 ; i++){
@@ -102,7 +102,7 @@
             <br/>
             <input type="submit" value="Filtrar" />
         </form>
-        <form action="ProductosListarResetear">
+        <form action="productosFiltrarPrueba">
             <button>Resetear filtros</button>
         </form>
             <br/>
@@ -141,7 +141,7 @@
                         <td><%=DateFormat.getInstance().format(p.getFecha())%></td>
                         <td><%=p.getImagen()%></td>
                         <td><%=p.getPropietario().getNombre()%></td>
-                        <td><%=p.getCategoria()%></td>
+                        <td><%=p.getCategoria().getNombre()%></td>
                         <td><a href="ProductosVer?id=<%= p.getProductoId() %>">Ver producto</a></td>
                         <%
                             if(user != null && user.getAdministrador()){ //Si el usuario es administrador, se le añaden dos columnas para editar y borrar los productos listados
