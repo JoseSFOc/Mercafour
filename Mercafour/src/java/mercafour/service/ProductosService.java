@@ -103,7 +103,7 @@ public class ProductosService {
         } else {
             producto = this.productoFacade.find(new Integer(idProducto));
         }
-
+        
         producto.setNombre(nombre);
         producto.setDescripcion(descripcion);
         producto.setPrecio(new BigDecimal(precio));
@@ -183,6 +183,24 @@ public class ProductosService {
         return lista;
     }
     
+    public List<ProductoDTO> filtrar(String day, String month, String year){
+        List<Producto> productos;
+        List<ProductoDTO> rdo = new ArrayList<>();
+        //casos concretos de fecha
+        if (day!=null && !day.isEmpty() && month !=null && !month.isEmpty() && year !=null && !year.isEmpty()) {
+            productos = this.productoFacade.findByDateFull(year, month, day);
+        } else if(month!=null && !month.isEmpty() && year !=null && !year.isEmpty()){
+            productos = this.productoFacade.findByYearAndMonth(year, month);
+        }else if(day!=null && !day.isEmpty() && month !=null && !month.isEmpty()){
+            productos = this.productoFacade.findByMonthAndDay(month, day);
+        }else{
+            productos = this.productoFacade.findByDateDesc();
+        }
+        for (Producto producto : productos) {
+            rdo.add(producto.getDTO());
+        }
+        return rdo;
+    }
     /* Búqueda con filtros:
     un método en facade para cada filtro individual
     un método de búsqueda con filtros que tome array de palabras (1 por filtro) y vaya cada método individual.
