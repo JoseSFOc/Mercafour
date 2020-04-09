@@ -5,11 +5,13 @@
  */
 package mercafour.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import mercafour.entity.Comentario;
-
+import mercafour.entity.Usuario;
 /**
  *
  * @author aleja
@@ -27,6 +29,17 @@ public class ComentarioFacade extends AbstractFacade<Comentario> {
 
     public ComentarioFacade() {
         super(Comentario.class);
+    }
+    
+    public List<Comentario> findByProductId(String id){
+        Query q;
+        List<Comentario> lista;
+        int prodId = Integer.parseInt(id);
+        q = this.getEntityManager().createQuery("SELECT c FROM Comentario c WHERE c.comentarioPK.producto = :p")
+                .setParameter("p", prodId);
+        lista = q.getResultList();
+        
+        return lista;
     }
     
 }
