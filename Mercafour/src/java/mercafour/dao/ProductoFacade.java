@@ -150,8 +150,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
             }
            y1++;
         }
-        
-        
+        //for (Producto producto : rdo) { System.out.println(producto.toString());}
+        /*q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE MONTH({d 'p.fecha'}) = :month AND DAY({d 'p.fecha'}) = :day");
+        q.setParameter("month", new Integer(month));
+        q.setParameter("day", new Integer(day));
+        rdo = q.getResultList();*/
         return rdo;
     }
     
