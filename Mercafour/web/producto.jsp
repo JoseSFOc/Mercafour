@@ -71,7 +71,14 @@
             <input type="radio" name="valoracion" value="5" />5
             <br/><br/>
             <button>Enviar valoración</button>
+            <br/>
         </form>
+            <%/*
+            <form action="ProductosListar?modo=1">
+                <button>Volver</button>
+            </form>
+            */%>
+        <a href="ProductosListar?modo=1">Volver</a>
         <h2>Comentarios</h2>
       
         <%
