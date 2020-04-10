@@ -82,26 +82,90 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByYearOnly (String year) {
         Query q;
+        String d1 = 1+"/"+1+"/"+year;
+        String d2 = 31+"/"+12+"/"+year;
+        Date f1 = null, f2 = null;
+        try {
+            f1 = new SimpleDateFormat("dd/MM/yyyy").parse(d1);
+            f2 = new SimpleDateFormat("dd/MM/yyyy").parse(d2);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha BETWEEN :d1 AND :d2 ");
+        q.setParameter("d1", f1);
+        q.setParameter("d2", f2);
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE YEAR(p.fecha) = :year");
-        q.setParameter("year", new Integer(year)); 
-        return q.getResultList();        
+        return q.getResultList();         
     }
     
     public List<Producto> findByMonthOnly (String month) {
         Query q;
+        List<Producto> rdo = new ArrayList<>();
+        int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
+        String d1, d2; 
+        Date f1 = null, f2 = null;
+        if (month.equals("2")) {
+            fin = 28;
+        } else if (month.equals("4") ||month.equals("6") ||month.equals("9") ||month.equals("11") ){
+            fin = 30;
+        }else{
+            fin = 31;
+        }
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE MONTH(p.fecha) = :month");
-        q.setParameter("month", new Integer(month)); 
-        return q.getResultList();        
+        while(y1<=y2){
+            try {
+                d1 = 1+"/"+month+"/"+y1;
+                d2 = fin+"/"+month+"/"+y1;
+                f1 = new SimpleDateFormat("dd/MM/yyyy").parse(d1);
+                f2 = new SimpleDateFormat("dd/MM/yyyy").parse(d2);
+            } catch (ParseException ex) {
+                Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha BETWEEN :d1 AND :d2");
+            q.setParameter("d1", f1);
+            q.setParameter("d2", f2);
+            if (!q.getResultList().isEmpty()) {
+                rdo.addAll(q.getResultList());
+            }
+           y1++;
+        }
+        return rdo;        
     }
     
     public List<Producto> findByDayOnly (String day) {
         Query q;
+        List<Producto> rdo = new ArrayList<>();
+        int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
+        String d; 
+        Date f1 = null, f2 = null;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE DAY(p.fecha) = :day");
-        q.setParameter("day", new Integer(day)); 
-        return q.getResultList();        
+        
+        while(y1<=y2){
+            for (int m = 1; m <= 12; m++) {
+                if (m==2) {
+                    fin = 28;
+                } else if (m==4 ||m==6 ||m==9 ||m==11){
+                    fin = 30;
+                }else{
+                    fin = 31;
+                }
+                if(new Integer(day) < fin){try {
+                    //si el dia es el 31 no comprobamos ni febrero ni eso
+                    d = day+"/"+m+"/"+y1;
+                    f1 = new SimpleDateFormat("dd/MM/yyyy").parse(d);
+                    q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha = :d");
+                    q.setParameter("d", f1); 
+                    if (!q.getResultList().isEmpty()) {
+                        rdo.addAll(q.getResultList());
+                    }
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            y1++;
+        }
+        return rdo;        
     }
     
     public List<Producto> findByYearAndMonth (String year, String month) {
