@@ -184,22 +184,34 @@ public class ProductosService {
     }
     
     public List<ProductoDTO> filtrar(String day, String month, String year){
-        List<Producto> productos;
+        List<Producto> productosFecha, productosCategoria;
         List<ProductoDTO> rdo = new ArrayList<>();
-        //casos concretos de fecha
+        productosFecha = this.filtrarPorFecha(day, month, year);
+        //productosCategoria = this.productoFacade.findByCategory(year);
+        for (Producto producto : productosFecha) {
+            rdo.add(producto.getDTO());
+        }
+        return rdo;
+    }
+    
+    protected List<Producto> filtrarPorFecha(String day, String month, String year){
+        List<Producto> productos;
         if (day!=null && !day.isEmpty() && month !=null && !month.isEmpty() && year !=null && !year.isEmpty()) {
             productos = this.productoFacade.findByDateFull(year, month, day);
         } else if(month!=null && !month.isEmpty() && year !=null && !year.isEmpty()){
             productos = this.productoFacade.findByYearAndMonth(year, month);
         }else if(day!=null && !day.isEmpty() && month !=null && !month.isEmpty()){
             productos = this.productoFacade.findByMonthAndDay(month, day);
+        }else if(year !=null && !year.isEmpty()){
+            productos = this.productoFacade.findByYearOnly(year);
+        }else if (month !=null && !month.isEmpty()) {
+            productos = this.productoFacade.findByMonthOnly(month);
+        }else if (day!=null && !day.isEmpty()) {
+            productos = this.productoFacade.findByDayOnly(day);
         }else{
-            productos = this.productoFacade.findByDateDesc();
+           productos = this.productoFacade.findByDateDesc(); 
         }
-        for (Producto producto : productos) {
-            rdo.add(producto.getDTO());
-        }
-        return rdo;
+        return productos;
     }
     /* Búqueda con filtros:
     un método en facade para cada filtro individual
