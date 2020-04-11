@@ -10,7 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -188,12 +190,25 @@ public class ProductosService {
         return rdo;
     }
     
-    public List<ProductoDTO> filtrar(String day, String month, String year){
+    public List<ProductoDTO> filtrar(String day, String month, String year, String categoria){
         List<Producto> productosFecha, productosCategoria;
         List<ProductoDTO> rdo = new ArrayList<>();
+        Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), setRdo = new HashSet<>();
+        //fecha
         productosFecha = this.filtrarPorFecha(day, month, year);
-        //productosCategoria = this.productoFacade.findByCategory(year);
-        for (Producto producto : productosFecha) {
+        for (Producto producto : productosFecha) {setFecha.add(producto);}
+        //categoria
+        if (categoria!=null && !categoria.isEmpty()) {
+            Categoria c = this.categoriaFacade.findByName(categoria);
+            productosCategoria = this.productoFacade.findByCategory(c);
+        }else{
+            productosCategoria = this.productoFacade.findAll();
+        }
+        for (Producto producto : productosCategoria) {setCateg.add(producto);}
+
+        setRdo.addAll(setFecha);
+        setRdo.retainAll(setCateg);
+        for (Producto producto : setRdo) {
             rdo.add(producto.getDTO());
         }
         return rdo;
