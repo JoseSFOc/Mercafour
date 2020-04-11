@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
+import mercafour.dto.ComentarioDTO;
 import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Comentario;
@@ -72,13 +73,13 @@ public class ProductosVer extends HttpServlet {
                 } else {
                     List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
                     List<Categoria> listaCategorias = this.categoriaFacade.findAll();
-                    List<Comentario> listaComentarios = this.productosService.buscarComentarios(str);
+                    List<ComentarioDTO> listaComentarios = this.productosService.buscarComentarios(str);
                     
                     request.setAttribute("listaComentarios", listaComentarios);
                     request.setAttribute("listaUsuarios", listaUsuarios);
                     request.setAttribute("listaCategorias", listaCategorias);
                     request.setAttribute("producto", producto);
-
+                    
                     RequestDispatcher rd = request.getRequestDispatcher("producto.jsp");
                     rd.forward(request, response);
                 }
