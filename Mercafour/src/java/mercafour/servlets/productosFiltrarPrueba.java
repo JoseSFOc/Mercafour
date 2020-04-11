@@ -70,7 +70,7 @@ public class productosFiltrarPrueba extends HttpServlet {
             
             listaProductos = this.productoService.filtrar(request.getParameter("filtro_dia"),
                     request.getParameter("filtro_mes"),
-                    request.getParameter("filtro_anyo"));
+                    request.getParameter("filtro_anyo"), request.getParameter("filtro_categoria"));
 
 
             request.setAttribute("listaUsuarios", listaUsuarios);
