@@ -194,6 +194,38 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();         
     }
     
+    public List<Producto> findByYearAndDay (String year, String day) {
+        Query q;
+        List<Producto>rdo = new ArrayList<>();
+        int fin;
+        String d;
+        Date f1 = null;
+        for (int m = 1; m <= 12; m++) {
+            if (m==2) {
+                fin = 28;
+            } else if (m==4 ||m==6 ||m==9 ||m==11){
+               fin = 30;
+            }else{
+                fin = 31;
+            }
+            if(new Integer(day) < fin){
+                try {
+                    //si el dia es el 31 no comprobamos ni febrero ni eso
+                    d = day+"/"+m+"/"+year;
+                    f1 = new SimpleDateFormat("dd/MM/yyyy").parse(d);
+                    q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha = :d");
+                    q.setParameter("d", f1); 
+                    if (!q.getResultList().isEmpty()) {
+                        rdo.addAll(q.getResultList());
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return rdo;         
+    }
+    
     public List<Producto> findByMonthAndDay (String month, String day) {        
         Query q;
         List<Producto> rdo = new ArrayList<>();
@@ -207,8 +239,8 @@ public class ProductoFacade extends AbstractFacade<Producto> {
             } catch (ParseException ex) {
                 Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
             }
-           q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha = :d1");
-           q.setParameter("d1", f1);
+            q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha = :d1");
+            q.setParameter("d1", f1);
             if (!q.getResultList().isEmpty()) {
                 rdo.addAll(q.getResultList());
             }
