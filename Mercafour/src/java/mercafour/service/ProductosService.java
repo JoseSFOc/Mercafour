@@ -202,6 +202,8 @@ public class ProductosService {
             productos = this.productoFacade.findByYearAndMonth(year, month);
         }else if(day!=null && !day.isEmpty() && month !=null && !month.isEmpty()){
             productos = this.productoFacade.findByMonthAndDay(month, day);
+        }else if(day!=null && !day.isEmpty() && year !=null && !year.isEmpty()){
+            productos = this.productoFacade.findByYearAndDay(year, day);
         }else if(year !=null && !year.isEmpty()){
             productos = this.productoFacade.findByYearOnly(year);
         }else if (month !=null && !month.isEmpty()) {
