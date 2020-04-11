@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
 <%@page import="mercafour.entity.Producto"%>
@@ -23,9 +24,17 @@
         List<Categoria> listaCategorias = (List) request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List) request.getAttribute("listaProductos");
         UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
+        int modo = Integer.parseInt(request.getParameter("modo"));
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     %>
     <body>
+        <% if (modo == 0) { %>
+        <h1>Mis Productos</h1>
+        <% } else { %>
         <h1>Listado de Productos</h1>
+        <% } %>
+
 
     <u1 class="navbar">
         <li><a href="menuProductoVendedor.jsp">Página principal</a></li>
@@ -35,8 +44,11 @@
     </u1>
 
     <u2 class="navbar">
-        <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
-        <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+        <% if(modo == 0) { %>
+            <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+        <% } else { %>
+            <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
+        <% } %>
         <li><a href="ProductosCrear">Subir Productos</a></li>
     </u2>
 
@@ -65,7 +77,7 @@
             <tr>
                 <td><%= p.getNombre()%></td>
                 <td><%= p.getPrecio()%></td>
-                <td><%= p.getFecha().toString()%></td>
+                <td><%= (format.format(p.getFecha())).toString() %></td>
                 <td><%= p.getPropietario().getNombre()%></td>
                 <td><%= p.getCategoria().getNombre()%></td>
                 <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
@@ -82,6 +94,6 @@
     </main>
     <%
             } // Cierre if
-%>
+    %>
 </body>
 </html>
