@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="listaUsuarios.jsp"> Lista de usuarios </a></br>
-        <a href="ProductosListar">Lista de productos </a>
+        <a href="listaUsuarios.jsp"> Lista de usuarios </a><br/>
+        <a href="ProductosListar">Lista de productos </a><br/>
+        <a href="PalabrasClaveListar">Lista de palabras clave</a>
     </body>
 </html>

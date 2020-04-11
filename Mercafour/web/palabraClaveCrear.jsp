@@ -30,5 +30,6 @@
             <input type="submit" value="Enviar"/>
         </form>
         <p><%= status %></p>
+        <a href="PalabrasClaveListar">Volver</a>
     </body>
 </html>

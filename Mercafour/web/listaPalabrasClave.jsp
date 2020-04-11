@@ -26,6 +26,18 @@
     </head>
     <body>
         <h1>Listado de Palabras Clave</h1>
+        <a href="palabraClaveCrear.jsp">Nueva Palabra</a><br/>
+        <%
+            if(user.getAdministrador()){
+        %>
+        <a href="menuAdministrador.jsp">Volver</a>
+        <%
+            } else {
+        %>
+        <a href="menuProductoVendedor.jsp">Volver</a>
+        <%
+            }
+        %>
         <table border="1">
             <thead>
                 <tr>
