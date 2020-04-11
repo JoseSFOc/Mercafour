@@ -71,11 +71,10 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();        
     }
     
-    public List<Producto> findByCategory (String categoria) {
+    public List<Producto> findByCategory (Categoria categoria) {
         Query q;
-        
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.categoria LIKE :categoria");
-        q.setParameter("categoria", "%" + categoria + "%"); // Los % se ponen delante y detrás para indicar que la cadena
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria");
+        q.setParameter("categoria", categoria); // Los % se ponen delante y detrás para indicar que la cadena
                                                       // de caracteres debe estar incluida en el nombre.
         return q.getResultList();        
     }
