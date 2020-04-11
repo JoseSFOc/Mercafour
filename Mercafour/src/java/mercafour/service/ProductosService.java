@@ -141,11 +141,11 @@ public class ProductosService {
             LOG.log(Level.SEVERE, "No se ha encontrado el producto");
             return false;
         } else {
-            if (this.usuarioFacade.findByName(autor) == null) {
+            if (this.usuarioFacade.findByEmail(autor) == null) {
                 LOG.log(Level.SEVERE, "No existe el usuario");
                 return false;
             } else {
-                Usuario u = usuarioFacade.findByName(autor);
+                Usuario u = usuarioFacade.findByEmail(autor);
                 ComentarioPK c= new ComentarioPK();
                 c.setAutor(u.getIdUsuario());
                 c.setProducto(producto.getIdProducto());
@@ -172,15 +172,20 @@ public class ProductosService {
         }
     }
     
-    public List<Comentario> buscarComentarios(String productoId){
+    public List<ComentarioDTO> buscarComentarios(String productoId){
         List<Comentario> lista = null;
+        List<ComentarioDTO> rdo = null;
         Producto producto = this.productoFacade.find(new Integer(productoId));
         if (producto == null) {
             LOG.log(Level.SEVERE, "No existe el producto");
         } else {
+            rdo = new ArrayList<>();
             lista = this.comentarioFacade.findByProductId(productoId);
+            for (Comentario c : lista) {
+                rdo.add(c.getDTO());
+            }
         }
-        return lista;
+        return rdo;
     }
     
     public List<ProductoDTO> filtrar(String day, String month, String year){
