@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,12 +53,15 @@ public class ProductosValorar extends HttpServlet {
             
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
             Date date = new Date();
-            String productoId = request.getParameter("productoId");
+            String productoId = request.getParameter("id");
             this.productoservice.nuevoComentario(productoId, request.getParameter("textoComentario"),
-                    request.getParameter("valoracion"), user.getUsername(), format.format(date));
+                    request.getParameter("valoracion"), user.getEmail(), format.format(date));
             
-            request.setAttribute("id", productoId);
-            response.sendRedirect("ProductosVer");            
+            //request.setAttribute("producto", this.productoservice.searchById(productoId));
+            //request.setAttribute("id", productoId);
+            //response.sendRedirect("ProductosVer");  
+            RequestDispatcher rd = request.getRequestDispatcher("ProductosVer");
+            rd.forward(request, response);
         } 
     }
 
