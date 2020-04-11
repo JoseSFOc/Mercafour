@@ -5,9 +5,11 @@
  */
 package mercafour.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import mercafour.entity.Categoria;
 
 /**
@@ -27,6 +29,27 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
 
     public CategoriaFacade() {
         super(Categoria.class);
+    }
+    
+    public Categoria findByName(String categoria){
+        Query q;
+        Categoria c = null;
+        List<Categoria> lista;
+        
+        q = this.getEntityManager().createQuery("SELECT c FROM Categoria c WHERE c.nombre LIKE :nombre");
+        q.setParameter("nombre", "%" + categoria + "%"); // Los % se ponen delante y detrás para indicar que la cadena
+                                                      // de caracteres debe estar incluida en el nombre.
+        //return q.getResultList();  
+        /*
+        q = this.getEntityManager().createNamedQuery("Usuario.findByName");
+        q.setParameter("nombre", user);*/
+        lista = q.getResultList();
+        
+        if(lista!= null && !lista.isEmpty()){
+            c = lista.get(0);
+        }
+        
+        return c;
     }
     
 }
