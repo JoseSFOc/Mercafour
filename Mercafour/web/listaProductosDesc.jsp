@@ -88,9 +88,9 @@
             <select name="filtro_categoria">
                 <option value="">-Todas las categorías-</option>
                 <%
-                    for(int i = 0 ;  i< 1 ; i++){
+                    for(Categoria c : listaCategorias){
                 %>
-                <option value="<%=i%>"><%=i%></option>
+                <option value="<%=c.getNombre()%>"><%=c.getNombre()%></option>
                 <%
                     }
                 %>
