@@ -89,9 +89,6 @@ public class UsuarioDTO {
             return false;
         }
         final UsuarioDTO other = (UsuarioDTO) obj;
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
         if (!Objects.equals(this.userId, other.userId)) {
             return false;
         }

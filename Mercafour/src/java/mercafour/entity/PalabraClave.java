@@ -42,8 +42,8 @@ public class PalabraClave implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_PALABRA_CLAVE")
     private Integer idPalabraClave;
-    @Size(max = 50)
-    @Column(name = "PALABRA")
+    //@Size(max = 50)
+    @Column(name = "PALABRA", length = 50)
     private String palabra;
     @JoinTable(name = "PRODUCTO_PALABRA_CLAVE", joinColumns = {
         @JoinColumn(name = "PALABRA_CLAVE", referencedColumnName = "ID_PALABRA_CLAVE")}, inverseJoinColumns = {

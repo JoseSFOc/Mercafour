@@ -9,11 +9,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú de Productos</title>
+        <title>Mercafour - Página Principal</title>
+        <link rel="stylesheet" href="CSS/styleMenuProductoVendedor.css">
     </head>
+
     <body>
-        <a href="ProductosCrear">Añadir Producto</a></br>
-        <a href="ProductosListar?modo=0">Mis Productos</a></br>
-        <a href="ProductosListar?modo=1">Listar Productos</a>
-    </body> 
+        <h1>Página Principal</h1>
+    <u1 class="navbar">
+        <li><a href="">Buscar</a></li>
+        <li><a href="">Categorias</a></li>
+        <li><a href="PalabrasClaveListar">Palabras Clave</a></li>
+        <li><a href="Logout">Logout</a></li>
+    </u1>
+
+    <u2 class="navbar">
+        <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
+        <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+        <li><a href="ProductosCrear">Subir Productos</a></li>
+    </u2>
+
+    <div>
+        Aquí habrá algo, supongo..
+    </div>
+
+</body>
 </html>
