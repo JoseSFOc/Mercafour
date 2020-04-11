@@ -4,6 +4,7 @@
     Author     : Marco Hurtado
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mercafour.dto.ComentarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
@@ -19,6 +20,7 @@
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         ProductoDTO producto;
         Producto p;
+        List<ComentarioDTO> comentarios = (List)request.getAttribute("listaComentarios");
         String categoria = "", imagen = "", productoId = "";
 
         //p =  (Producto) request.getAttribute("producto");
@@ -57,7 +59,7 @@
             }
         %>
         <form method="" action="ProductosValorar">
-            <input type="hidden" name="productoId" value="<%= productoId %>" />
+            <input type="hidden" name="id" value="<%= productoId %>" />
             Comentario:<br/>
             <textarea id="comentario" name="textoComentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
             </textarea><br/>
@@ -82,12 +84,14 @@
         <h2>Comentarios</h2>
       
         <%
-            if(producto.getComentarios()==null || producto.getComentarios().isEmpty()){
+            if(comentarios==null || comentarios.isEmpty()){
+                
         %>
          <p>En la actualidad no hay ningun comentario para este producto</p>
         <%
             }else{
-                for (ComentarioDTO com : producto.getComentarios()) {
+                for (ComentarioDTO com : comentarios) {System.out.println(com.getTexto());};
+                for (ComentarioDTO com : comentarios) {
         %>
         <h3>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%></h3><br/>
         <h3>Valoración: <%=com.getValoracion()%>/5</h3><br/>
