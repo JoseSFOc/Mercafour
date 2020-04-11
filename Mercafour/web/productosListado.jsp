@@ -24,7 +24,11 @@
         List<Categoria> listaCategorias = (List) request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List) request.getAttribute("listaProductos");
         UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
-        int modo = Integer.parseInt(request.getParameter("modo"));
+        int modo = 0;
+        
+        if(request.getParameter("modo") != null){
+            modo = Integer.parseInt(request.getParameter("modo"));
+        }
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     %>
