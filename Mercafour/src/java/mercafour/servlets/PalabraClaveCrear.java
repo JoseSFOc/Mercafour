@@ -43,7 +43,7 @@ public class PalabraClaveCrear extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario user = (Usuario) session.getAttribute("user");
-        String status = null;
+        String status = "";
 
         if (user == null) {
             response.sendRedirect("login.jsp");
@@ -65,6 +65,7 @@ public class PalabraClaveCrear extends HttpServlet {
                         encontrado = true;
                         status = "La palabra clave ya se encuentra registrada.";
                     }
+                    i++;
                 }
                 //Si no esta registrada, se guarda.
                 //En caso contrario no se hace nada.
