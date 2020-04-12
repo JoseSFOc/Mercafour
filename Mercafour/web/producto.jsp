@@ -22,9 +22,11 @@
         Producto p;
         List<ComentarioDTO> comentarios = (List)request.getAttribute("listaComentarios");
         String categoria = "", imagen = "", productoId = "";
-
-        //p =  (Producto) request.getAttribute("producto");
-        //producto = p.getDTO();
+        String status;
+        status = (String)request.getAttribute("status");
+        if(status == null){
+            status = "";
+        }
         producto = (ProductoDTO) request.getAttribute("producto");
         if (producto.getCategoria() != null) {
             categoria = producto.getCategoria().getNombre();
@@ -72,7 +74,9 @@
             <input type="radio" name="valoracion" value="4" />4
             <input type="radio" name="valoracion" value="5" />5
             <br/><br/>
-            <button>Enviar valoración</button>
+            <button>Enviar valoración</button> 
+            <a href="ProductosListar?modo=1">Volver</a>
+            <p><%= status %></p> 
             <br/>
         </form>
             <%/*
@@ -80,7 +84,7 @@
                 <button>Volver</button>
             </form>
             */%>
-        <a href="ProductosListar?modo=1">Volver</a>
+        
         <h2>Comentarios</h2>
       
         <%
