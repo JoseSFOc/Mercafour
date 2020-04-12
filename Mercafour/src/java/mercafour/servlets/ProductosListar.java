@@ -34,11 +34,11 @@ public class ProductosListar extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    @EJB 
+    @EJB
     private CategoriaFacade categoriaFacade;
     @EJB
     private ProductosService productosService;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,37 +52,45 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario usuario;
-        int modo = 0;
-        
-        // 0 - solo los productos del usuario
+        int modo = 0, id = -1;
+
+        // 0 - solo los productos del usuario del usuario conectado
         // 1 - todos los productos en orden desc
-        
-        if(request.getParameter("modo") != null) {
+        // 2 - productos del usuario seleccionado
+        if (request.getParameter("modo") != null) {
             modo = Integer.parseInt(request.getParameter("modo"));
         }
         
-        usuario = (Usuario)session.getAttribute("user");
-        if(usuario == null){
+        if(modo == 2) {
+            id = Integer.parseInt(request.getParameter("idProp"));
+        }
+
+        usuario = (Usuario) session.getAttribute("user");
+        if (usuario == null) {
             response.sendRedirect("login.jsp");
         } else {
             List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
             List<Categoria> listaCategorias = this.categoriaFacade.findAll();
             List<ProductoDTO> listaProductos;
-            
-            if(modo == 0){
+
+            if (modo == 0) {
                 listaProductos = this.productosService.searchByUser(usuario);
-            } else /*if(modo == 1)*/{
+            } else if (modo == 2) {
+                Usuario prop = this.usuarioFacade.find(new Integer(id));
+                listaProductos = this.productosService.searchByUser(prop);
+                request.setAttribute("nombrePropietario", prop.getNombre());
+            } else {
                 listaProductos = this.productosService.searchByDateDesc();
             }
 
             request.setAttribute("listaUsuarios", listaUsuarios);
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductos", listaProductos);
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("productosListado.jsp");
             rd.forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -53,8 +53,9 @@ public class productosFiltrarPrueba extends HttpServlet {
         Usuario usuario;
         int modo = 0;
         
-        // 0 - solo los productos del usuario
+        // 0 - solo los productos del usuario conectado
         // 1 - todos los productos en orden desc
+        // 2 - los productos del usuario seleccionado
         
         if(request.getParameter("modo") != null) {
             modo = Integer.parseInt(request.getParameter("modo"));
@@ -77,7 +78,8 @@ public class productosFiltrarPrueba extends HttpServlet {
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductos", listaProductos);
             
-            RequestDispatcher rd = request.getRequestDispatcher("listaProductosDesc.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("productosListado.jsp");
+            //RequestDispatcher rd = request.getRequestDispatcher("listaProductosDesc.jsp");
             rd.forward(request, response);
         }
     }

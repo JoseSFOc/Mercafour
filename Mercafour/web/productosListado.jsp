@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="mercafour.dao.UsuarioFacade"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
@@ -24,10 +25,16 @@
         List<Categoria> listaCategorias = (List) request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List) request.getAttribute("listaProductos");
         UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
+
         int modo = 0;
-        
-        if(request.getParameter("modo") != null){
+        String nombrePropietario = "";
+
+        if (request.getParameter("modo") != null) {
             modo = Integer.parseInt(request.getParameter("modo"));
+        }
+
+        if (request.getAttribute("nombrePropietario") != null) {
+            nombrePropietario = (String)request.getAttribute("nombrePropietario");
         }
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -35,8 +42,10 @@
     <body>
         <% if (modo == 0) { %>
         <h1>Mis Productos</h1>
-        <% } else { %>
+        <% } else if (modo == 1) { %>
         <h1>Listado de Productos</h1>
+        <% } else if (modo == 2) {%>
+        <h1>Productos de <%= nombrePropietario%></h1>
         <% } %>
 
 
@@ -48,13 +57,73 @@
     </u1>
 
     <u2 class="navbar">
-        <% if(modo == 0) { %>
-            <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
-        <% } else { %>
-            <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
-        <% } %>
+        <% if (modo == 0) { %>
+        <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+            <% } else if (modo == 1) { %>
+        <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
+            <% } else if (modo == 2) { %>
+        <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+        <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
+            <% } %>
         <li><a href="ProductosCrear">Subir Productos</a></li>
     </u2>
+
+    <form action="productosFiltrarPrueba">
+        Buscar por: <br/><br/>
+        Fecha
+        <select name="filtro_dia">
+            <option value="">-Todos-</option>
+            <%
+                for (int i = 1; i <= 31; i++) {
+            %>
+            <option value="<%=i%>"><%=i%></option>
+            <%
+                }
+            %>
+        </select>
+        /
+        <select name="filtro_mes">
+            <option value="">-Todos-</option>
+            <%
+                for (int i = 1; i <= 12; i++) {
+            %>
+            <option value="<%=i%>"><%=i%></option>
+            <%
+                }
+            %>
+        </select>
+        /
+        <select name="filtro_anyo">
+            <option value="">-Todos-</option>
+            <%
+                for (int i = 2020; i > 2001; i--) {
+            %>
+            <option value="<%=i%>"><%=i%></option>
+            <%
+                }
+            %>
+        </select>
+        <br/>
+        <br/>
+        Categoría:
+        <select name="filtro_categoria">
+            <option value="">-Todas las categorías-</option>
+            <%
+                for (Categoria c : listaCategorias) {
+            %>
+            <option value="<%=c.getNombre()%>"><%=c.getNombre()%></option>
+            <%
+                }
+            %>
+        </select>
+        Título: <input placeholder="Título" type="text" name="filtro_nombre"/>
+        <br/>
+        <br/>
+        Búsqueda libre: <input placeholder="Búsqueda" type="text" name="filtro_palabras_clave"/>              
+        <br/>
+        <input type="submit" value="Filtrar" /> 
+        <button>Resetear filtros</button>
+    </form></br>
 
     <%
         if (listaProductos == null || listaProductos.isEmpty()) {
@@ -81,13 +150,19 @@
             <tr>
                 <td><%= p.getNombre()%></td>
                 <td><%= p.getPrecio()%></td>
-                <td><%= (format.format(p.getFecha())).toString() %></td>
+                <td><%= (format.format(p.getFecha())).toString()%></td>
+
+                <% if (p.getPropietario().equals(user)) {%>
                 <td><%= p.getPropietario().getNombre()%></td>
+                <% } else {%>
+                <td><a href="ProductosListar?modo=2&idProp=<%= p.getPropietario().getUserId()%>"><%= p.getPropietario().getNombre()%></a></td>
+                    <% }%>
+
                 <td><%= p.getCategoria().getNombre()%></td>
                 <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
 
-                <td><% if (p.getPropietario().equals(user)) { %><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a><%  } else { %>Editar<%  } %></td>
-                <td><% if (p.getPropietario().equals(user)) { %><a href="ProductosBorrar?id=<%= p.getProductoId()%>">Borrar</a><%  } else { %>Borrar<%  } %></td>
+                <td><% if (p.getPropietario().equals(user)) {%><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a><%  } else { %>Editar<%  } %></td>
+                <td><% if (p.getPropietario().equals(user)) {%><a href="ProductosBorrar?id=<%= p.getProductoId()%>">Borrar</a><%  } else { %>Borrar<%  } %></td>
 
             </tr>
             <%
@@ -97,7 +172,7 @@
         </table>
     </main>
     <%
-            } // Cierre if
+        } // Cierre if
     %>
 </body>
 </html>
