@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mercafour.dto.ComentarioDTO;
 import mercafour.dto.UsuarioDTO;
 import mercafour.entity.Usuario;
 import mercafour.service.ProductosService;
@@ -50,13 +51,24 @@ public class ProductosValorar extends HttpServlet {
         } else {
             Usuario usuario = (Usuario)session.getAttribute("user");
             UsuarioDTO user = usuario.getDTO();
-            
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-            Date date = new Date();
+            String status = "";
             String productoId = request.getParameter("id");
-            this.productoservice.nuevoComentario(productoId, request.getParameter("textoComentario"),
-                    request.getParameter("valoracion"), user.getEmail(), format.format(date));
+            boolean yaComento = false;
+            for (ComentarioDTO c : productoservice.buscarComentarios(productoId)) {
+                if (c.getAutor().equals(user)) {
+                    yaComento = true;
+                }
+            }
+            if (yaComento) {
+                status = "Ya has valorado este producto";
+                request.setAttribute("status", status);
+            } else {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+                Date date = new Date();
             
+                this.productoservice.nuevoComentario(productoId, request.getParameter("textoComentario"),
+                    request.getParameter("valoracion"), user.getEmail(), format.format(date));
+            }            
             //request.setAttribute("producto", this.productoservice.searchById(productoId));
             //request.setAttribute("id", productoId);
             //response.sendRedirect("ProductosVer");  
