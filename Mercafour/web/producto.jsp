@@ -14,10 +14,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="CSS/styleMenuProductoVendedor.css">
         <title>Producto</title>
     </head>
     <%
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ProductoDTO producto;
         Producto p;
         List<ComentarioDTO> comentarios = (List)request.getAttribute("listaComentarios");
@@ -97,8 +98,8 @@
                 for (ComentarioDTO com : comentarios) {System.out.println(com.getTexto());};
                 for (ComentarioDTO com : comentarios) {
         %>
-        <h3>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%></h3><br/>
-        <h3>Valoración: <%=com.getValoracion()%>/5</h3><br/>
+        <h3>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%></h3>
+        <h3>Valoración: <%=com.getValoracion()%>/5</h3>
         <p><%=com.getTexto()%></p>
         <br/>
         <br/>
