@@ -8,7 +8,9 @@ package mercafour.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,6 +55,8 @@ public class ProductosValorar extends HttpServlet {
             UsuarioDTO user = usuario.getDTO();
             String status = "";
             String productoId = request.getParameter("id");
+            List<Integer> valoraciones = new ArrayList<>();
+            valoraciones.add(1); valoraciones.add(2); valoraciones.add(3); valoraciones.add(4); valoraciones.add(5);
             boolean yaComento = false;
             for (ComentarioDTO c : productoservice.buscarComentarios(productoId)) {
                 if (c.getAutor().equals(user)) {
@@ -61,8 +65,11 @@ public class ProductosValorar extends HttpServlet {
             }
             if (yaComento) {
                 status = "Ya has valorado este producto";
-                request.setAttribute("status", status);
-            } else {
+            } else if (request.getParameter("textoComentario") == null|| request.getParameter("textoComentario").isEmpty() ||
+                    request.getParameter("textoComentario").equals("Introduce un comentario (300 caracteres máximo).") ||
+                    request.getParameter("valoracion") == null || !valoraciones.contains(Integer.parseInt(request.getParameter("valoracion")))) {
+                status = "Falta comentario o valoración";
+            }else{
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
                 Date date = new Date();
             
@@ -72,6 +79,7 @@ public class ProductosValorar extends HttpServlet {
             //request.setAttribute("producto", this.productoservice.searchById(productoId));
             //request.setAttribute("id", productoId);
             //response.sendRedirect("ProductosVer");  
+            request.setAttribute("status", status);
             RequestDispatcher rd = request.getRequestDispatcher("ProductosVer");
             rd.forward(request, response);
         } 
