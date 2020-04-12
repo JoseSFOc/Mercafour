@@ -64,8 +64,7 @@
         <form method="" action="ProductosValorar">
             <input type="hidden" name="id" value="<%= productoId %>" />
             Comentario:<br/>
-            <textarea id="comentario" name="textoComentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).
-            </textarea><br/>
+            <textarea id="comentario" name="textoComentario" rows="4" cols="50">Introduce un comentario (300 caracteres máximo).</textarea><br/>
             <br/><br/>
             
             Valoración:
