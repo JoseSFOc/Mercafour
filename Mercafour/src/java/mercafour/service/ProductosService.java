@@ -199,7 +199,7 @@ public class ProductosService {
         for (Producto producto : productosFecha) {setFecha.add(producto);}
         //categoria
         if (categoria!=null && !categoria.isEmpty()) {
-            Categoria c = this.categoriaFacade.findByName(categoria);
+            Categoria c = this.categoriaFacade.findById(categoria);
             productosCategoria = this.productoFacade.findByCategory(c);
         }else{
             productosCategoria = this.productoFacade.findAll();
