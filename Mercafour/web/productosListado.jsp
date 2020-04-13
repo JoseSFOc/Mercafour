@@ -111,7 +111,7 @@
             <%
                 for (Categoria c : listaCategorias) {
             %>
-            <option value="<%=c.getNombre()%>"><%=c.getNombre()%></option>
+            <option value="<%=c.getIdCategoria()%>"><%=c.getNombre()%></option>
             <%
                 }
             %>
