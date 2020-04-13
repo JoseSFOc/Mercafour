@@ -52,4 +52,25 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         return c;
     }
     
+    public Categoria findById(String id){
+        Query q;
+        Categoria c = null;
+        List<Categoria> lista;
+        
+        q = this.getEntityManager().createQuery("SELECT c FROM Categoria c WHERE c.idCategoria = :id");
+        q.setParameter("id", Integer.parseInt(id)); // Los % se ponen delante y detrás para indicar que la cadena
+                                                      // de caracteres debe estar incluida en el nombre.
+        //return q.getResultList();  
+        /*
+        q = this.getEntityManager().createNamedQuery("Usuario.findByName");
+        q.setParameter("nombre", user);*/
+        lista = q.getResultList();
+        
+        if(lista!= null && !lista.isEmpty()){
+            c = lista.get(0);
+        }
+        
+        return c;
+    }
+    
 }
