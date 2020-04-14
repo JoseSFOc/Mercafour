@@ -60,6 +60,11 @@ public class ProductosService {
         }
         return listaDTO;
     }
+    
+    public List<ProductoDTO> searchAll () {
+        List<Producto> lista = this.productoFacade.findAll();        
+        return this.convertToDTO(lista);
+    } 
 
     public List<ProductoDTO> searchByDateDesc() {
         List<Producto> productos = this.productoFacade.findByDateDesc();
