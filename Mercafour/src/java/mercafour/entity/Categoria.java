@@ -134,12 +134,16 @@ public class Categoria implements Serializable {
         CategoriaDTO categoriaDTO = new CategoriaDTO();
         categoriaDTO.setIdCategoria(this.idCategoria);
         categoriaDTO.setNombre(this.nombre);
-        List<ProductoDTO>productos = new ArrayList<>();
+        /*List<ProductoDTO>productos = new ArrayList<>();
         for (Producto p : this.productoList) {
             productos.add(p.getDTO());
         }
-        categoriaDTO.setProductoList(productos);
-        categoriaDTO.setSupercategoria(this.supercategoria.getDTO());
+        categoriaDTO.setProductoList(productos);*/
+        if (this.supercategoria!=null) {
+            categoriaDTO.setSupercategoria(this.supercategoria.getDTO());
+        }else{
+            categoriaDTO.setSupercategoria(null);
+        }
         return categoriaDTO;
     }
     
