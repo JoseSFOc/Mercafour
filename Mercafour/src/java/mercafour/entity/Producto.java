@@ -201,7 +201,7 @@ public class Producto implements Serializable {
             comentariosDTO.add(c.getDTO());
         }
         ProductoDTO productoDTO = new ProductoDTO();
-        productoDTO.setCategoria(this.categoria);
+        productoDTO.setCategoria(this.categoria.getDTO());
         productoDTO.setComentarios(comentariosDTO);
         productoDTO.setDescripcion(this.descripcion);
         productoDTO.setFecha(this.fecha);
