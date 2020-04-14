@@ -6,6 +6,7 @@
 package mercafour.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,6 +23,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mercafour.dto.CategoriaDTO;
+import mercafour.dto.ProductoDTO;
 
 /**
  *
@@ -125,6 +128,19 @@ public class Categoria implements Serializable {
     @Override
     public String toString() {
         return "mercafour.entity.Categoria[ idCategoria=" + idCategoria + " ]";
+    }
+    
+    public CategoriaDTO getDTO(){
+        CategoriaDTO categoriaDTO = new CategoriaDTO();
+        categoriaDTO.setIdCategoria(this.idCategoria);
+        categoriaDTO.setNombre(this.nombre);
+        List<ProductoDTO>productos = new ArrayList<>();
+        for (Producto p : this.productoList) {
+            productos.add(p.getDTO());
+        }
+        categoriaDTO.setProductoList(productos);
+        categoriaDTO.setSupercategoria(this.supercategoria.getDTO());
+        return categoriaDTO;
     }
     
 }
