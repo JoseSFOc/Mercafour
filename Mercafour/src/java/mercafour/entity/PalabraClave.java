@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mercafour.dto.PalabraClaveDTO;
 
 /**
  *
@@ -106,6 +107,13 @@ public class PalabraClave implements Serializable {
     @Override
     public String toString() {
         return "mercafour.entity.PalabraClave[ idPalabraClave=" + idPalabraClave + " ]";
+    }
+    
+    public PalabraClaveDTO getDTO(){
+        PalabraClaveDTO pClaveDTO = new PalabraClaveDTO();
+        pClaveDTO.setIdPalabraClave(this.idPalabraClave);
+        pClaveDTO.setPalabra(this.palabra);
+        return pClaveDTO;
     }
     
 }
