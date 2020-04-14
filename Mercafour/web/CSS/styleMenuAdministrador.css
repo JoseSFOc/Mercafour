@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-abr-2020, 20:26:33
+    Author     : josem
+*/
+body{
+    padding-left: 11em;
+    font-family: Arial, Helvetica, sans-serif;
+    color : #2b2c2a;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+}
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #70bg32;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+}
+
+a:link, a:visited {
+    background-color: #23416c;
+    color: white;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 80%;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+    width: 10rem;
+}
+
+a:hover, a:active {
+    background-color: #325c96;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

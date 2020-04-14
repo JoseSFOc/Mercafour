@@ -51,6 +51,7 @@
 
 
     <u1 class="navbar">
+        <% if (user.isIsAdmin()) {%><li><a href="menuAdministrador.jsp">Página de Administración</a></li><% } %>
         <li><a href="">Buscar</a></li>
         <li><a href="">Categorias</a></li>
         <li><a href="Logout">Logout</a></li>

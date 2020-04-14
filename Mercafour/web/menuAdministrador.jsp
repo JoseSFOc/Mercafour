@@ -9,11 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Mercafour: Página de Administración</title>
+        <link rel="stylesheet" href="CSS/styleMenuAdministrador.css">
     </head>
     <body>
+        <h1>Administración</h1> 
+        
         <a href="listaUsuarios.jsp"> Lista de usuarios </a><br/>
         <a href="ProductosListar">Lista de productos </a><br/>
-        <a href="PalabrasClaveListar">Lista de palabras clave</a>
+        <a href="PalabrasClaveListar">Lista de palabras clave</a></br>
+        <a href="Logout">Logout</a>
+        
+        <img src="resources/mercafour_logo.png">
+        
     </body>
 </html>

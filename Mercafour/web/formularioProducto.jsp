@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
 <%@page import="mercafour.entity.Categoria"%>
 <%@page import="java.util.List"%>
@@ -24,6 +25,7 @@
         ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
         List<Usuario> listaUsuarios;
         List<Categoria> listaCategorias;
+        UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
 
         if (producto != null) {
             idProducto = producto.getProductoId().toString();
@@ -41,6 +43,7 @@
         <h1>Introduzca los datos del producto</h1>
 
     <u1 class="navbar">
+        <% if (user.isIsAdmin()) {%><li><a href="menuAdministrador.jsp">Página de Administración</a></li><% } %>
         <li><a href="">Buscar</a></li>
         <li><a href="">Categorias</a></li>
         <li><a href="Logout">Logout</a></li>

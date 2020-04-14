@@ -6,8 +6,23 @@ body{
     padding-left: 11em;
     font-family: Georgia, 'Times New Roman', Times, serif;
     color : #2b2c2a;
-    background-color: rgb(154, 201, 201);
 }
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #70bg32;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, whitesmoke,rgb(154, 201, 201));
+    background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+}
+
 u1.navbar {
     list-style-type: none;
     padding: 0;
