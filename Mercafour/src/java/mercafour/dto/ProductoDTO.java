@@ -25,7 +25,7 @@ public class ProductoDTO {
     private BigDecimal precio;
     private Date fecha;
     private String imagen;
-    private List<PalabraClave> palabrasClave;
+    private List<PalabraClaveDTO> palabrasClave;
     private CategoriaDTO categoria;
     private UsuarioDTO propietario;
     private List<ComentarioDTO> comentarios;
@@ -80,11 +80,11 @@ public class ProductoDTO {
         this.imagen = imagen;
     }
 
-    public List<PalabraClave> getPalabrasClave() {
+    public List<PalabraClaveDTO> getPalabrasClave() {
         return palabrasClave;
     }
 
-    public void setPalabrasClave(List<PalabraClave> palabrasClave) {
+    public void setPalabrasClave(List<PalabraClaveDTO> palabrasClave) {
         this.palabrasClave = palabrasClave;
     }
 
