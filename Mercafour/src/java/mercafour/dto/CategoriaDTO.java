@@ -34,14 +34,14 @@ public class CategoriaDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    /*
     public List<ProductoDTO> getProductoList() {
         return productoList;
     }
 
     public void setProductoList(List<ProductoDTO> productoList) {
         this.productoList = productoList;
-    }
+    }*/
 
     public CategoriaDTO getSupercategoria() {
         return supercategoria;
