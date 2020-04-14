@@ -6,12 +6,7 @@
 package mercafour.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
-import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
-import mercafour.entity.Categoria;
-import mercafour.entity.Producto;
+import mercafour.dto.ProductoDTO;
 import mercafour.entity.Usuario;
 import mercafour.service.ProductosService;
 
@@ -53,16 +46,26 @@ public class ProductosGuardar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("user");
+        String idPro = request.getParameter("idProducto");
 
         if (user == null) {
             response.sendRedirect("login.jsp");
         } else {
 
-            this.productosService.createOrUpdate(request.getParameter("idProducto"), 
+            if(idPro == null || idPro.isEmpty()){
+                this.productosService.createOrUpdate(request.getParameter("idProducto"), 
                     request.getParameter("nombre"), request.getParameter("descripcion"), 
                     request.getParameter("precio"), request.getParameter("imagen"), 
                     user.getIdUsuario().toString(), request.getParameter("categoria"));
-            
+            } else {
+                ProductoDTO producto = this.productosService.searchById(idPro);
+                
+                this.productosService.createOrUpdate(request.getParameter("idProducto"), 
+                    request.getParameter("nombre"), request.getParameter("descripcion"), 
+                    request.getParameter("precio"), request.getParameter("imagen"), 
+                    producto.getPropietario().getUserId().toString(), request.getParameter("categoria"));
+            }
+
             response.sendRedirect("ProductosListar");
 
         }

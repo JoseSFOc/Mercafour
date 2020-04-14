@@ -41,7 +41,6 @@
         <h1>Introduzca los datos del producto</h1>
 
     <u1 class="navbar">
-        <li><a href="menuProductoVendedor.jsp">Página principal</a></li>
         <li><a href="">Buscar</a></li>
         <li><a href="">Categorias</a></li>
         <li><a href="Logout">Logout</a></li>

@@ -27,7 +27,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="CSS/styleMenuProductoVendedor.css">
+        <link rel="stylesheet" href="CSS/styleLogin.css">
         <title>Mercafour: Inicio de Sesion</title>
     </head>
     <body>

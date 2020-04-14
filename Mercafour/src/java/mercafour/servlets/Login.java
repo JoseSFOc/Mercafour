@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
             if(pre.getAdministrador()){
                 response.sendRedirect("menuAdministrador.jsp");
             }else{
-                response.sendRedirect("menuProductoVendedor.jsp");
+                response.sendRedirect("ProductosListar");
             }
         } else {
 
@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
                     if (user.getAdministrador()) {
                         redirect = "menuAdministrador.jsp"; //Pagina de inicio de admins
                     } else {
-                        redirect = "menuProductoVendedor.jsp"; //Pagina de inicio de usuarios
+                        redirect = "ProductosListar"; //Pagina de inicio de usuarios
                     }
                 }
             }

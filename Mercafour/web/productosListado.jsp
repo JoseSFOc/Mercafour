@@ -51,7 +51,6 @@
 
 
     <u1 class="navbar">
-        <li><a href="menuProductoVendedor.jsp">Página principal</a></li>
         <li><a href="">Buscar</a></li>
         <li><a href="">Categorias</a></li>
         <li><a href="Logout">Logout</a></li>
@@ -162,8 +161,8 @@
                 <td><%= p.getCategoria().getNombre()%></td>
                 <td><a href="ProductosVer?id=<%= p.getProductoId()%>">Ver</a></td>
 
-                <td><% if (p.getPropietario().equals(user)) {%><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a><%  } else { %>Editar<%  } %></td>
-                <td><% if (p.getPropietario().equals(user)) {%><a href="ProductosBorrar?id=<%= p.getProductoId()%>">Borrar</a><%  } else { %>Borrar<%  } %></td>
+                <td><% if (p.getPropietario().equals(user) || user.isIsAdmin()) {%><a href="ProductosEditar?id=<%= p.getProductoId()%>">Editar</a><%  } else { %>Editar<%  } %></td>
+                <td><% if (p.getPropietario().equals(user) || user.isIsAdmin()) {%><a href="ProductosBorrar?id=<%= p.getProductoId()%>">Borrar</a><%  } else { %>Borrar<%  } %></td>
 
             </tr>
             <%
