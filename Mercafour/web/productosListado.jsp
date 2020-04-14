@@ -4,6 +4,7 @@
     Author     : josem
 --%>
 
+<%@page import="mercafour.dto.CategoriaDTO"%>
 <%@page import="mercafour.dao.UsuarioFacade"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mercafour.dto.UsuarioDTO"%>
@@ -21,8 +22,8 @@
         <link rel="stylesheet" href="CSS/styleProductosListado.css">
     </head>
     <%
-        List<Usuario> listaUsuarios = (List) request.getAttribute("listaUsuarios");
-        List<Categoria> listaCategorias = (List) request.getAttribute("listaCategorias");
+        List<UsuarioDTO> listaUsuarios = (List) request.getAttribute("listaUsuarios");
+        List<CategoriaDTO> listaCategorias = (List) request.getAttribute("listaCategorias");
         List<ProductoDTO> listaProductos = (List) request.getAttribute("listaProductos");
         UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
 
@@ -109,7 +110,7 @@
         <select name="filtro_categoria">
             <option value="">-Todas las categorías-</option>
             <%
-                for (Categoria c : listaCategorias) {
+                for (CategoriaDTO c : listaCategorias) {
             %>
             <option value="<%=c.getIdCategoria()%>"><%=c.getNombre()%></option>
             <%
