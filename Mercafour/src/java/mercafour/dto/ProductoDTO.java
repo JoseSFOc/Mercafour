@@ -26,7 +26,7 @@ public class ProductoDTO {
     private Date fecha;
     private String imagen;
     private List<PalabraClave> palabrasClave;
-    private Categoria categoria;
+    private CategoriaDTO categoria;
     private UsuarioDTO propietario;
     private List<ComentarioDTO> comentarios;
     
@@ -88,11 +88,11 @@ public class ProductoDTO {
         this.palabrasClave = palabrasClave;
     }
 
-    public Categoria getCategoria() {
+    public CategoriaDTO getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(CategoriaDTO categoria) {
         this.categoria = categoria;
     }
 
