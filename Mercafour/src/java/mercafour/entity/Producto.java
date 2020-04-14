@@ -30,6 +30,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import mercafour.dto.ComentarioDTO;
+import mercafour.dto.PalabraClaveDTO;
 import mercafour.dto.ProductoDTO;
 
 /**
@@ -207,7 +208,11 @@ public class Producto implements Serializable {
         productoDTO.setFecha(this.fecha);
         productoDTO.setImagen(this.imagen);
         productoDTO.setNombre(this.nombre);
-        productoDTO.setPalabrasClave(this.palabraClaveList);
+        List<PalabraClaveDTO> listaPalabras = new ArrayList<>();
+        if (this.palabraClaveList != null && !this.palabraClaveList.isEmpty()) {
+            for (PalabraClave p : this.palabraClaveList) { listaPalabras.add(p.getDTO());}
+        }
+        productoDTO.setPalabrasClave(listaPalabras);
         productoDTO.setPrecio(this.precio);
         productoDTO.setProductoId(this.idProducto);
         productoDTO.setPropietario(this.propietario.getDTO()); 
