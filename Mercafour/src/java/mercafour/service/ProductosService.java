@@ -9,16 +9,19 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.ComentarioFacade;
+import mercafour.dao.PalabraClaveFacade;
 import mercafour.dao.ProductoFacade;
 import mercafour.dao.UsuarioFacade;
 import mercafour.dto.ComentarioDTO;
@@ -26,6 +29,7 @@ import mercafour.dto.ProductoDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Comentario;
 import mercafour.entity.ComentarioPK;
+import mercafour.entity.PalabraClave;
 import mercafour.entity.Producto;
 import mercafour.entity.Usuario;
 
@@ -49,6 +53,9 @@ public class ProductosService {
 
     @EJB
     private CategoriaFacade categoriaFacade;
+    
+    @EJB
+    private PalabraClaveFacade palabraClaveFacade;
 
     protected List<ProductoDTO> convertToDTO(List<Producto> listaProductos) {
         List<ProductoDTO> listaDTO = null;
@@ -195,10 +202,10 @@ public class ProductosService {
         return rdo;
     }
     
-    public List<ProductoDTO> filtrar(String day, String month, String year, String categoria){
+    public List<ProductoDTO> filtrar(String day, String month, String year, String categoria, String busquedaLibre){
         List<Producto> productosFecha, productosCategoria;
         List<ProductoDTO> rdo = new ArrayList<>();
-        Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), setRdo = new HashSet<>();
+        Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), setRdo = new HashSet<>(), productosPalabrasClave;
         //fecha
         productosFecha = this.filtrarPorFecha(day, month, year);
         for (Producto producto : productosFecha) {setFecha.add(producto);}
@@ -213,6 +220,12 @@ public class ProductosService {
 
         setRdo.addAll(setFecha);
         setRdo.retainAll(setCateg);
+        //productosPalabrasClave = setRdo;
+        
+        /*if (busquedaLibre != null && !busquedaLibre.isEmpty()) {
+            filtrarPorPalabrasClave(busquedaLibre, productosPalabrasClave);
+        }*/
+        
         for (Producto producto : setRdo) {
             rdo.add(producto.getDTO());
         }
@@ -244,5 +257,23 @@ public class ProductosService {
     un método en facade para cada filtro individual
     un método de búsqueda con filtros que tome array de palabras (1 por filtro) y vaya cada método individual.
     */
+
+    private void filtrarPorPalabrasClave(String busquedaLibre, Set<Producto> productos) {
+        StringTokenizer strtok = new StringTokenizer(busquedaLibre);
+        Set<String> busqueda = new HashSet<>();
+        while (strtok.hasMoreTokens()) { busqueda.add(strtok.nextToken());}
+
+        Set<PalabraClave> palabras = new HashSet<>();
+        for (PalabraClave p : this.palabraClaveFacade.findAll()) {
+            if (busqueda.contains(p)) {
+                //
+            }
+        }
+        for (Producto prod : productos) {
+                /*if (prod.getPalabraClaveList().contains(p)) {//bucamos los productos con las palabras clave
+                   palabras.add(p);
+                }*/
+            }
+    }
 
 }
