@@ -18,10 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.UsuarioFacade;
+import mercafour.dto.CategoriaDTO;
 import mercafour.dto.ProductoDTO;
+import mercafour.dto.UsuarioDTO;
 import mercafour.entity.Categoria;
 import mercafour.entity.Usuario;
+import mercafour.service.CategoriasService;
 import mercafour.service.ProductosService;
+import mercafour.service.UsuariosService;
 
 /**
  *
@@ -36,6 +40,10 @@ public class productosFiltrarPrueba extends HttpServlet {
     private UsuarioFacade usuarioFacade;
     @EJB 
     private CategoriaFacade categoriaFacade;
+    @EJB
+    private UsuariosService usuarioService;
+    @EJB
+    private CategoriasService categoriaService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,8 +73,10 @@ public class productosFiltrarPrueba extends HttpServlet {
         if(usuario == null){
             response.sendRedirect("login.jsp");
         } else {
-            List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
-            List<Categoria> listaCategorias = this.categoriaFacade.findAll();
+            //List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
+            List<UsuarioDTO> listaUsuarios = this.usuarioService.searchAll();
+            //List<Categoria> listaCategorias = this.categoriaFacade.findAll();
+            List<CategoriaDTO> listaCategorias = this.categoriaService.searchAll();
             List<ProductoDTO> listaProductos;
             
             listaProductos = this.productoService.filtrar(request.getParameter("filtro_dia"),
