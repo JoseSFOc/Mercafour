@@ -80,8 +80,8 @@ public class productosFiltrarPrueba extends HttpServlet {
             List<ProductoDTO> listaProductos;
             
             listaProductos = this.productoService.filtrar(request.getParameter("filtro_dia"),
-                    request.getParameter("filtro_mes"),
-                    request.getParameter("filtro_anyo"), request.getParameter("filtro_categoria"));
+                    request.getParameter("filtro_mes"), request.getParameter("filtro_anyo"), 
+                    request.getParameter("filtro_categoria"), request.getParameter("filtro_palabras_clave"));
 
 
             request.setAttribute("listaUsuarios", listaUsuarios);
