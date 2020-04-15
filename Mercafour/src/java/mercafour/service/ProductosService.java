@@ -104,12 +104,14 @@ public class ProductosService {
 
     public void createOrUpdate(String idProducto, String nombre, String descripcion,
             String precio, String imagen, String idPropietario,
-            String idCategoria) {
+            String idCategoria, String pClave) {
 
         Producto producto;
         boolean esCrear = false;
         Usuario propietario;
         Categoria categoria;
+        List<PalabraClave> palabrasClave = new ArrayList<>();
+        PalabraClave aux; 
 
         if (idProducto == null || idProducto.isEmpty()) {
             producto = new Producto(0);
@@ -123,7 +125,31 @@ public class ProductosService {
         producto.setPrecio(new BigDecimal(precio));
         producto.setFecha(new Date());
         producto.setImagen(imagen);
+        
+        //Palabras clave
+        StringTokenizer st = new StringTokenizer(pClave);
+        while(st.hasMoreTokens()){
+            String texto = st.nextToken();
+            System.out.println(texto);
+            List<Producto> pl = new ArrayList<>(); 
 
+            aux = this.palabraClaveFacade.findByWord(texto);
+
+            if(aux == null){
+                aux = new PalabraClave(0);
+                aux.setPalabra(texto);                
+            } else {
+                pl = aux.getProductoList();
+            }                
+            pl.add(producto);
+            aux.setProductoList(pl);
+            palabrasClave.add(aux);
+            this.palabraClaveFacade.create(aux);
+
+        }
+        
+        producto.setPalabraClaveList(palabrasClave);
+        //
         propietario = this.usuarioFacade.find(new Integer(idPropietario));
         producto.setPropietario(propietario);
 
@@ -135,6 +161,7 @@ public class ProductosService {
         } else {
             this.productoFacade.edit(producto);
         }
+
 
     }
 

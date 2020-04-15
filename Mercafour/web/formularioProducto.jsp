@@ -6,12 +6,15 @@
 
 <%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="mercafour.dto.ProductoDTO"%>
+<%@page import="mercafour.dto.PalabraClaveDTO"%>
+<%@page import="mercafour.entity.PalabraClave"%>
 <%@page import="mercafour.entity.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="mercafour.entity.Usuario"%>
 <%@page import="mercafour.entity.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +25,7 @@
 
     <%
         String idProducto = "", nombre = "", descripcion = "", precio = "";
+        List<PalabraClaveDTO> palabraClave = new java.util.ArrayList();
         ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
         List<Usuario> listaUsuarios;
         List<Categoria> listaCategorias;
@@ -76,7 +80,16 @@
                     }
                 %>
             </select></div></br>        
-
+        <% String str ="";
+            if(producto!= null){
+                for(PalabraClaveDTO p : palabraClave){
+                    str += p.getPalabra() + " ";  
+                    System.out.println(p.getPalabra());
+                }
+            }
+        %>
+            <div>Palabras clave: <textarea name="palabrasClave" rows="10" cols="30" /><%= str %></textarea></div> </br>
+        
         <input type="submit" name="Enviar" value="Enviar"/>
     </form>
        

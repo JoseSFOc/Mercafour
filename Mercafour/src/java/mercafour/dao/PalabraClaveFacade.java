@@ -36,13 +36,15 @@ public class PalabraClaveFacade extends AbstractFacade<PalabraClave> {
         PalabraClave p = null;
         Query q;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM PalabraClave p WHERE UPPER(p.palabra) LIKE = :palabra");
-        q.setParameter("palabra", palabra);
+        q = this.getEntityManager().createQuery("SELECT p FROM PalabraClave p WHERE UPPER(p.palabra) = :palabra");
+        q.setParameter("palabra", palabra.toUpperCase());
         
         if(q.getResultList()!= null && !q.getResultList().isEmpty()){
             p = (PalabraClave) q.getResultList().get(0);
         }
         return p;
     }
+    
+    
     
 }

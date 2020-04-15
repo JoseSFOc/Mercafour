@@ -4,6 +4,8 @@
     Author     : Marco Hurtado
 --%>
 
+<%@page import="mercafour.dto.PalabraClaveDTO"%>
+<%@page import="mercafour.entity.PalabraClave"%>
 <%@page import="mercafour.entity.Usuario"%>
 <%@page import="mercafour.dto.UsuarioDTO"%>
 <%@page import="java.util.List"%>
@@ -61,7 +63,14 @@
         Precio: <%= producto.getPrecio().toString()%></br>
         Fecha: <%= format.format(producto.getFecha())%></br>
         Propietario: <%= producto.getPropietario().getNombre()%></br>
-        Categoria: <%= categoria%>
+        Categoria: <%= categoria%></br>
+        <% String str = "";
+            
+            for(PalabraClaveDTO pAux : producto.getPalabrasClave()){
+                str += pAux.getPalabra() + " ";
+            }
+        %>
+        Palabras clave: <%= str %></br>
     </fieldset>
 
     <h2>Imagen</h2><br/>

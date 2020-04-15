@@ -56,14 +56,14 @@ public class ProductosGuardar extends HttpServlet {
                 this.productosService.createOrUpdate(request.getParameter("idProducto"), 
                     request.getParameter("nombre"), request.getParameter("descripcion"), 
                     request.getParameter("precio"), request.getParameter("imagen"), 
-                    user.getIdUsuario().toString(), request.getParameter("categoria"));
+                    user.getIdUsuario().toString(), request.getParameter("categoria"), request.getParameter("palabrasClave"));
             } else {
                 ProductoDTO producto = this.productosService.searchById(idPro);
                 
                 this.productosService.createOrUpdate(request.getParameter("idProducto"), 
                     request.getParameter("nombre"), request.getParameter("descripcion"), 
                     request.getParameter("precio"), request.getParameter("imagen"), 
-                    producto.getPropietario().getUserId().toString(), request.getParameter("categoria"));
+                    producto.getPropietario().getUserId().toString(), request.getParameter("categoria"), request.getParameter("palabrasClave"));
             }
 
             response.sendRedirect("ProductosListar");
