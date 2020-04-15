@@ -6,7 +6,6 @@
 package mercafour.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -16,9 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mercafour.dao.PalabraClaveFacade;
-import mercafour.entity.PalabraClave;
+import mercafour.dto.PalabraClaveDTO;
 import mercafour.entity.Usuario;
+import mercafour.service.PalabrasClaveService;
 
 /**
  *
@@ -27,7 +26,7 @@ import mercafour.entity.Usuario;
 @WebServlet(name = "PalabrasClaveListar", urlPatterns = {"/PalabrasClaveListar"})
 public class PalabrasClaveListar extends HttpServlet {
     @EJB
-    private PalabraClaveFacade palabraCLaveFacade;
+    private PalabrasClaveService palabrasClaveService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +45,7 @@ public class PalabrasClaveListar extends HttpServlet {
         if(user == null){
             response.sendRedirect("login.jsp");
         }else{
-            List<PalabraClave> palabrasClave = palabraCLaveFacade.findAll();
+            List<PalabraClaveDTO> palabrasClave = palabrasClaveService.searchAll();
             request.setAttribute("palabrasClave", palabrasClave);
             RequestDispatcher rd = request.getRequestDispatcher("listaPalabrasClave.jsp");
             rd.forward(request, response);

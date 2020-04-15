@@ -4,7 +4,7 @@
     Author     : aleja
 --%>
 
-<%@page import="mercafour.entity.PalabraClave"%>
+<%@page import="mercafour.dto.PalabraClaveDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="mercafour.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +14,7 @@
         response.sendRedirect("login.jsp");
     }
     
-    List<PalabraClave> palabrasClave = (List<PalabraClave>)request.getAttribute("palabrasClave");
+    List<PalabraClaveDTO> palabrasClave = (List<PalabraClaveDTO>)request.getAttribute("palabrasClave");
     
 
 %>
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 <%
-                    for(PalabraClave p : palabrasClave){
+                    for(PalabraClaveDTO p : palabrasClave){
                         
                 %>
                 <tr>
