@@ -17,7 +17,6 @@
         <h1>Página Principal</h1>
     <u1 class="navbar">
         <li><a href="">Buscar</a></li>
-        <li><a href="">Categorias</a></li>
         <li><a href="PalabrasClaveListar">Palabras Clave</a></li>
         <li><a href="Logout">Logout</a></li>
     </u1>

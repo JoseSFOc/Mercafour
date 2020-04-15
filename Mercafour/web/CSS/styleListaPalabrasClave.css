@@ -1,11 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
 /* 
-    Created on : 10-abr-2020, 12:14:59
+    Created on : 15-abr-2020, 12:20:40
     Author     : josem
 */
 body{
     padding-left: 11em;
     font-family: Arial, Helvetica, sans-serif;
     color : #2b2c2a;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
 }
 
 html {
@@ -41,10 +51,6 @@ u2.navbar {
     right: 1em;
     width: 9em;
 }
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-}
 u1.navbar li {
     background: white;
     margin: 0.5em 0;
@@ -65,18 +71,10 @@ u2.navbar a{
 }
 a:link, a:visited {
     color: rgb(0, 151, 151);
+    text-decoration: none;
 }
 
-form {
-    background: white;
-    position: relative;
-    border: 2px solid #555;
-    min-width: 84%;
-    max-width: 84%;
-    padding: 5px; 
-}
-
-input[type=text], select, textarea {
+input[type=text] {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
@@ -89,25 +87,28 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 20px;   
 }
 
 input[type=submit]:hover {
-    background-color: #325c96;  
+    background-color: #325c96;
 }
 
-button {
-    background-color: #23416c;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;    
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #325c96;      
+form {
+    background: white;
+    border: 2px solid #555;
+    min-width: 83.05%;
+    max-width: 83.05%;
+    position: relative;
+    padding-left: 5px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
+    margin-bottom: 1rem;
 }
 
 table{
@@ -117,9 +118,9 @@ table{
     border-left: 2px solid #555;
     border-bottom: 2px solid #555;
     border-collapse: collapse;
-    position: absolute;
-    min-width: 73%;
-    max-width: 73%;
+    position: relative;
+    min-width: 61.5rem;
+    max-width: 61.5rem;
 }
 
 tr:nth-child(odd) {
@@ -136,3 +137,4 @@ td {
     text-align: left;
     padding: 0.5em 0.61em;    
 }
+

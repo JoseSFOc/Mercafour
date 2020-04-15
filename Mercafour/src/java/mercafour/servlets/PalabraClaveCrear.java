@@ -77,7 +77,7 @@ public class PalabraClaveCrear extends HttpServlet {
                 }
             }
             request.setAttribute("status", status);
-            RequestDispatcher rd = request.getRequestDispatcher("palabraClaveCrear.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("PalabrasClaveListar");
             rd.forward(request, response);
             
         }

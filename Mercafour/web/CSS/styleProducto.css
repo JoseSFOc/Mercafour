@@ -1,5 +1,10 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
 /* 
-    Created on : 10-abr-2020, 12:14:59
+    Created on : 15-abr-2020, 13:22:20
     Author     : josem
 */
 body{
@@ -9,28 +14,15 @@ body{
 }
 
 html {
-    height: 100%;
+    height: auto;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background: #70bg32;
-    background-repeat:no-repeat;
-    background: -webkit-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
-    background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
-    background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
-    background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
     background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
 }
 
-input[name="nombre"]{
-    margin-top: 5px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
-}
 u1.navbar {
     list-style-type: none;
     padding: 0;
@@ -61,10 +53,11 @@ textarea {
     background-color: #f8f8f8;
     resize: none;
 }
-h1 {
+h1, h2 {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
 }
+
 u1.navbar li {
     background: white;
     margin: 0.5em 0;
@@ -83,37 +76,27 @@ u2.navbar li {
 u2.navbar a{
     text-decoration: none;
 }
-a:link {
+a:link, a:visited {
     color: rgb(0, 151, 151);
 }
-a:visited {
-    color: rgb(0, 151, 151);
-}
-form[name="formFormulario"] {
+
+fieldset {
     background: white;
-    margin: auto;
     padding: 0.3em;
     border: 3px solid black;
-    position: fixed;
+    position: relative;
+    min-width: 72%;
+    max-width: 72%;  
+}
+
+form {
+    background: white;
+    margin-top: 3rem;
+    padding: 0.3em;
+    border: 3px solid black;
+    position: relative;
     min-width: 72%;
     max-width: 72%;
-}
-
-input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #f8f8f8;
-}
-
-input[type=number] {
-    width: 25%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
 }
 
 input[type=submit] {
