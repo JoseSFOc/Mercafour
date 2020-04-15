@@ -205,6 +205,7 @@ public class ProductosService {
     public List<ProductoDTO> filtrar(String day, String month, String year, String categoria, String busquedaLibre){
         List<Producto> productosFecha, productosCategoria;
         List<ProductoDTO> rdo = new ArrayList<>();
+        List<PalabraClave> coincidencias;
         Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), setRdo = new HashSet<>(), productosPalabrasClave;
         //fecha
         productosFecha = this.filtrarPorFecha(day, month, year);
@@ -221,9 +222,12 @@ public class ProductosService {
         setRdo.addAll(setFecha);
         setRdo.retainAll(setCateg);
         //productosPalabrasClave = setRdo;
-        
-        /*if (busquedaLibre != null && !busquedaLibre.isEmpty()) {
-            filtrarPorPalabrasClave(busquedaLibre, productosPalabrasClave);
+        /*
+        if (busquedaLibre != null && !busquedaLibre.isEmpty()) {
+            coincidencias = coincidencias(busquedaLibre);
+            if (!coincidencias.isEmpty()) {
+                setRdo.retainAll(filtrarPorPalabrasClave(coincidencias, productosPalabrasClave));
+            }
         }*/
         
         for (Producto producto : setRdo) {
@@ -257,23 +261,37 @@ public class ProductosService {
     un método en facade para cada filtro individual
     un método de búsqueda con filtros que tome array de palabras (1 por filtro) y vaya cada método individual.
     */
-
-    private void filtrarPorPalabrasClave(String busquedaLibre, Set<Producto> productos) {
+    
+    protected List<PalabraClave> coincidencias(String busquedaLibre){
+        int i = 0;
         StringTokenizer strtok = new StringTokenizer(busquedaLibre);
-        Set<String> busqueda = new HashSet<>();
+        List<String> busqueda = new ArrayList<>();
+        List<String> palabrasClave = new ArrayList<>();
+        List<PalabraClave>rdo = new ArrayList<>();
+        //for (PalabraClave p : this.palabraClaveFacade.findAll()) { palabrasClave.add(p.getPalabra().toUpperCase());}
         while (strtok.hasMoreTokens()) { busqueda.add(strtok.nextToken());}
-
-        Set<PalabraClave> palabras = new HashSet<>();
-        for (PalabraClave p : this.palabraClaveFacade.findAll()) {
-            if (busqueda.contains(p)) {
-                //
+        for (String p : busqueda) {
+            PalabraClave pk = this.palabraClaveFacade.findByWord(p);
+            if (pk!=null) {
+                rdo.add(pk);
             }
         }
-        for (Producto prod : productos) {
-                /*if (prod.getPalabraClaveList().contains(p)) {//bucamos los productos con las palabras clave
-                   palabras.add(p);
-                }*/
+        return rdo;
+    }
+    
+    private Set<Producto> filtrarPorPalabrasClave(List<PalabraClave> busqueda, Set<Producto> productos) {
+        Set<Producto> rdo = new HashSet<>();
+        int i = 0;
+        for (Producto producto : productos) {
+            i = 0;
+            while(i < busqueda.size() && !producto.getPalabraClaveList().contains(busqueda.get(i))){
+                i++;
             }
+            if (i <= busqueda.size()) {
+                rdo.add(producto);
+            }
+        }
+        return rdo;
     }
 
 }
