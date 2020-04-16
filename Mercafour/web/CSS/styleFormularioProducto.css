@@ -6,6 +6,7 @@ body{
     padding-left: 11em;
     font-family: Arial, Helvetica, sans-serif;
     color : #2b2c2a;
+    overflow: auto;
 }
 
 html {
@@ -97,6 +98,8 @@ form[name="formFormulario"] {
     position: fixed;
     min-width: 72%;
     max-width: 72%;
+    height: 80%;
+    overflow: auto;
 }
 
 input[type=text], select, textarea {
