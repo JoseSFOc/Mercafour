@@ -81,7 +81,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByYearOnly (String year) {
         Query q;
-        String d1 = 1+"/"+1+"/"+year;
+        /*String d1 = 1+"/"+1+"/"+year;
         String d2 = 31+"/"+12+"/"+year;
         Date f1 = null, f2 = null;
         try {
@@ -92,7 +92,9 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         }
         q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha BETWEEN :d1 AND :d2 ");
         q.setParameter("d1", f1);
-        q.setParameter("d2", f2);
+        q.setParameter("d2", f2);*/
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('YEAR', p.fecha) = :anyo");
+        q.setParameter("anyo", new Integer(year));
         
         return q.getResultList();         
     }
@@ -100,9 +102,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByMonthOnly (String month) {
         Query q;
         List<Producto> rdo = new ArrayList<>();
-        int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
+        /*int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
         String d1, d2; 
-        Date f1 = null, f2 = null;
+        Date f1 = null, f2 = null;*/
+        
+        //q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE MONTH({d 'p.fecha'}) = :month");
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('MONTH', p.fecha) = :month");
+        q.setParameter("month", new Integer(month));
+        rdo = q.getResultList();
+        /*
         if (month.equals("2")) {
             fin = 28;
         } else if (month.equals("4") ||month.equals("6") ||month.equals("9") ||month.equals("11") ){
@@ -127,14 +135,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 rdo.addAll(q.getResultList());
             }
            y1++;
-        }
+        }*/
         return rdo;        
     }
     
     public List<Producto> findByDayOnly (String day) {
         Query q;
         List<Producto> rdo = new ArrayList<>();
-        int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
+        /*int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR), fin; 
         String d; 
         Date f1 = null, f2 = null;
         
@@ -163,13 +171,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 }
             }
             y1++;
-        }
+        }*/
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('DAY', p.fecha) = :dia");
+        q.setParameter("dia", new Integer(day));
+        rdo = q.getResultList();
         return rdo;        
     }
     
     public List<Producto> findByYearAndMonth (String year, String month) {
         Query q;
-        String fin;
+        /*String fin;
         if (month.equals("2")) {
             fin = "28";
         } else if (month.equals("4") ||month.equals("6") ||month.equals("9") ||month.equals("11") ){
@@ -188,7 +199,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         }
         q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha BETWEEN :d1 AND :d2 ");
         q.setParameter("d1", f1);
-        q.setParameter("d2", f2);
+        q.setParameter("d2", f2);*/
+        
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('YEAR', p.fecha) = :anyo AND FUNC('MONTH', p.fecha) = :mes");
+        q.setParameter("anyo", new Integer(year));
+        q.setParameter("mes", new Integer(month));
         
         return q.getResultList();         
     }
@@ -196,7 +211,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByYearAndDay (String year, String day) {
         Query q;
         List<Producto>rdo = new ArrayList<>();
-        int fin;
+        /*int fin;
         String d;
         Date f1 = null;
         for (int m = 1; m <= 12; m++) {
@@ -221,14 +236,19 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                     Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
+        }*/
+        
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('YEAR', p.fecha) = :anyo AND FUNC('DAY', p.fecha) = :dia");
+        q.setParameter("anyo", new Integer(year));
+        q.setParameter("dia", new Integer(day));
+        rdo = q.getResultList();
         return rdo;         
     }
     
     public List<Producto> findByMonthAndDay (String month, String day) {        
         Query q;
         List<Producto> rdo = new ArrayList<>();
-        int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR); 
+        /*int y1 = Calendar.getInstance().get(Calendar.YEAR)-20,y2 = Calendar.getInstance().get(Calendar.YEAR); 
         String d1; 
         Date f1 = null, f2 = null;
         while(y1<=y2){
@@ -245,11 +265,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
             }
            y1++;
         }
-        //for (Producto producto : rdo) { System.out.println(producto.toString());}
-        /*q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE MONTH({d 'p.fecha'}) = :month AND DAY({d 'p.fecha'}) = :day");
+        for (Producto producto : rdo) { System.out.println(producto.toString());}*/
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE FUNC('MONTH', p.fecha) = :month AND FUNC('DAY', p.fecha) = :day");
         q.setParameter("month", new Integer(month));
         q.setParameter("day", new Integer(day));
-        rdo = q.getResultList();*/
+        rdo = q.getResultList();
         return rdo;
     }
     
