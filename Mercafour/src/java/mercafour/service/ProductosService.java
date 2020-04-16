@@ -137,12 +137,12 @@ public class ProductosService {
 
             if(aux == null){
                 aux = new PalabraClave(0);
-                aux.setPalabra(texto);                
+                aux.setPalabra(texto);                 
             } else {
-                pl = aux.getProductoList();
+                pl = aux.getProductoList(); //esto
             }                
             pl.add(producto);
-            aux.setProductoList(pl);
+            aux.setProductoList(pl); 
             palabrasClave.add(aux);
             this.palabraClaveFacade.create(aux);
 
@@ -248,14 +248,14 @@ public class ProductosService {
 
         setRdo.addAll(setFecha);
         setRdo.retainAll(setCateg);
-        //productosPalabrasClave = setRdo;
-        /*
+        productosPalabrasClave = setRdo;
+        
         if (busquedaLibre != null && !busquedaLibre.isEmpty()) {
-            coincidencias = coincidencias(busquedaLibre);
+            coincidencias = this.coincidencias(busquedaLibre);
             if (!coincidencias.isEmpty()) {
                 setRdo.retainAll(filtrarPorPalabrasClave(coincidencias, productosPalabrasClave));
             }
-        }*/
+        }
         
         for (Producto producto : setRdo) {
             rdo.add(producto.getDTO());
@@ -314,7 +314,7 @@ public class ProductosService {
             while(i < busqueda.size() && !producto.getPalabraClaveList().contains(busqueda.get(i))){
                 i++;
             }
-            if (i <= busqueda.size()) {
+            if (i < busqueda.size()) {
                 rdo.add(producto);
             }
         }
