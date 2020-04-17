@@ -126,29 +126,7 @@ public class ProductosService {
         producto.setFecha(new Date());
         producto.setImagen(imagen);
         
-        //Palabras clave
-        StringTokenizer st = new StringTokenizer(pClave);
-        while(st.hasMoreTokens()){
-            String texto = st.nextToken();
-            System.out.println(texto);
-            List<Producto> pl = new ArrayList<>(); 
-
-            aux = this.palabraClaveFacade.findByWord(texto);
-
-            if(aux == null){
-                aux = new PalabraClave(0);
-                aux.setPalabra(texto);                 
-            } else {
-                pl = aux.getProductoList(); //esto
-            }                
-            pl.add(producto);
-            aux.setProductoList(pl); 
-            palabrasClave.add(aux);
-            this.palabraClaveFacade.create(aux);
-
-        }
-        
-        producto.setPalabraClaveList(palabrasClave);
+        producto.setPalabraClaveList(new ArrayList<>());
         //
         propietario = this.usuarioFacade.find(new Integer(idPropietario));
         producto.setPropietario(propietario);
@@ -157,12 +135,46 @@ public class ProductosService {
         producto.setCategoria(categoria);
 
         if (esCrear) {
-            this.productoFacade.create(producto);
-        } else {
+            this.productoFacade.create(producto); //creamos el producto y lo guardamos en la bd
+        } /*else {
             this.productoFacade.edit(producto);
+        }*/
+        
+        //Palabras clave
+        //if pclave!=null || !pclave.isEmpty()
+        StringTokenizer st = new StringTokenizer(pClave, "[,]");
+        while(st.hasMoreTokens()){
+            aux =null;
+            String texto = st.nextToken();
+            System.out.println(texto);
+            int i = 0;
+            while(i < texto.length() && texto.charAt(i) == ' '){i++;}
+            if (i < texto.length()) { //no se meten espacios entre comas
+                System.out.println(texto.substring(i));
+                texto = texto.substring(i);
+                List<Producto> pl = new ArrayList<>();
+                aux = this.palabraClaveFacade.findByWord(texto);
+
+                if(aux == null){//creamos palabra
+                    aux = new PalabraClave(0); //creamos la palabra clave
+                    aux.setPalabra(texto);
+                    pl.add(producto); 
+                    aux.setProductoList(pl); //le asociamos el producto
+                    this.palabraClaveFacade.create(aux); //la guardamos en la bd
+                } else {
+                    if (!aux.getProductoList().contains(producto)) {
+                        aux.getProductoList().add(producto);//asociamos el producto
+                    }
+                }
+                palabrasClave.add(aux); //añadimos la palabra a las palabras que tendrá el producto
+                //producto.getPalabraClaveList().add(aux);
+            }
+            //System.out.println(texto);
+            producto.setPalabraClaveList(palabrasClave); //actualizamos el objeto producto
+            this.productoFacade.edit(producto); //guardamos cambios
         }
-
-
+        
+        
     }
 
     public boolean remove(String id) {
