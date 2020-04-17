@@ -24,6 +24,7 @@
     </head>
 
     <%
+        String estado = (String)request.getAttribute("estadoSubirProducto");
         String idProducto = "", nombre = "", descripcion = "", precio = "";
         List<PalabraClaveDTO> palabraClave = new java.util.ArrayList();
         ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
@@ -40,7 +41,6 @@
 
         listaUsuarios = (List<Usuario>) request.getAttribute("listaUsuarios");
         listaCategorias = (List<Categoria>) request.getAttribute("listaCategorias");
-
     %>
 
     <body>
@@ -78,6 +78,8 @@
                 <option value="<%= c.getIdCategoria()%>"><%= str + c.getNombre()%></option>
                 <%
                     }
+                 System.out.println("HOLA");
+
                 %>
             </select></div></br>        
         <% String str ="";
@@ -89,9 +91,16 @@
             }
         %>
             <div>Palabras clave: <textarea name="palabrasClave" rows="10" cols="30" /><%= str %></textarea></div> </br>
-        
+        <%
+                if(estado == null){
+                    estado = "";
+                }
+            %>
+            <div> <%=estado%></br></div>  
+            
+            
         <input type="submit" name="Enviar" value="Enviar"/>
     </form>
-       
+             
 </body>
 </html>

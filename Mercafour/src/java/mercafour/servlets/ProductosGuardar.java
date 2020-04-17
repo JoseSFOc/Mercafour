@@ -6,7 +6,9 @@
 package mercafour.servlets;
 
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import mercafour.dao.CategoriaFacade;
 import mercafour.dao.UsuarioFacade;
 import mercafour.dto.ProductoDTO;
+import mercafour.entity.Categoria;
 import mercafour.entity.Usuario;
 import mercafour.service.ProductosService;
 
@@ -46,19 +49,34 @@ public class ProductosGuardar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("user");
-        String idPro = request.getParameter("idProducto");
-
+        List<Usuario> listaUsuarios = this.usuarioFacade.findAll();
+        List<Categoria> listaCategorias = this.categoriaFacade.findAll();
+        
+        request.setAttribute("listaUsuarios", listaUsuarios);
+        request.setAttribute("listaCategorias", listaCategorias);
+        
         if (user == null) {
             response.sendRedirect("login.jsp");
         } else {
-
-            if(idPro == null || idPro.isEmpty()){
+            if(request.getParameter("nombre") == null || request.getParameter("nombre").equals("")){
+                request.setAttribute("estadoSubirProducto","Introduce el nombre");
+                RequestDispatcher rd = request.getRequestDispatcher("formularioProducto.jsp");
+                rd.forward(request, response);
+            } else if(request.getParameter("descripcion") == null || request.getParameter("descripcion").equals("")){
+                request.setAttribute("estadoSubirProducto","Introduce la descripcion");
+                RequestDispatcher rd = request.getRequestDispatcher("formularioProducto.jsp");
+                rd.forward(request, response);
+            } else if(request.getParameter("precio") == null || request.getParameter("precio").equals("")){
+                request.setAttribute("estadoSubirProducto","Introduce el precio");
+                RequestDispatcher rd = request.getRequestDispatcher("formularioProducto.jsp");
+                rd.forward(request, response);
+            } else if(request.getParameter("idProducto") == null || request.getParameter("idProducto").isEmpty()){
                 this.productosService.createOrUpdate(request.getParameter("idProducto"), 
                     request.getParameter("nombre"), request.getParameter("descripcion"), 
                     request.getParameter("precio"), request.getParameter("imagen"), 
                     user.getIdUsuario().toString(), request.getParameter("categoria"), request.getParameter("palabrasClave"));
             } else {
-                ProductoDTO producto = this.productosService.searchById(idPro);
+                ProductoDTO producto = this.productosService.searchById(request.getParameter("idProducto"));
                 
                 this.productosService.createOrUpdate(request.getParameter("idProducto"), 
                     request.getParameter("nombre"), request.getParameter("descripcion"), 
