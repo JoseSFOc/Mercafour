@@ -71,7 +71,7 @@ public class Producto implements Serializable {
     @Size(max = 100)
     @Column(name = "IMAGEN")
     private String imagen;
-    @ManyToMany(mappedBy = "productoList")
+    @ManyToMany(mappedBy = "productoList", cascade = CascadeType.ALL)
     private List<PalabraClave> palabraClaveList;
     @JoinColumn(name = "CATEGORIA", referencedColumnName = "ID_CATEGORIA")
     @ManyToOne

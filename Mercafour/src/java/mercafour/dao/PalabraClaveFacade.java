@@ -36,9 +36,23 @@ public class PalabraClaveFacade extends AbstractFacade<PalabraClave> {
         PalabraClave p = null;
         Query q;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM PalabraClave p WHERE FUNC('UPPER',p.palabra) LIKE :palabra");
-        q.setParameter("palabra", palabra.toUpperCase());
+        q = this.getEntityManager().createQuery("SELECT p FROM PalabraClave p WHERE UPPER(p.palabra) LIKE :palabra");
+        q.setParameter("palabra", palabra);
+
+        if(q.getResultList()!= null && !q.getResultList().isEmpty()){
+            p = (PalabraClave) q.getResultList().get(0);
+        }
+        return p;
+    }
+    
+    public PalabraClave findSimilarWords(String s){
+        String palabra = s.toUpperCase();
+        PalabraClave p = null;
+        Query q;
         
+        q = this.getEntityManager().createQuery("SELECT p FROM PalabraClave p WHERE UPPER(p.palabra) LIKE :palabra");
+        q.setParameter("palabra", "%" + palabra + "%");
+
         if(q.getResultList()!= null && !q.getResultList().isEmpty()){
             p = (PalabraClave) q.getResultList().get(0);
         }

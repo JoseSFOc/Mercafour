@@ -84,8 +84,8 @@
             </select></div></br>        
         <% String str ="";
             if(producto!= null){
-                for(PalabraClaveDTO p : palabraClave){
-                    str += p.getPalabra() + " ";  
+                for(PalabraClaveDTO p : producto.getPalabrasClave()){
+                    str += p.getPalabra() + ", ";  
                     System.out.println(p.getPalabra());
                 }
             }
