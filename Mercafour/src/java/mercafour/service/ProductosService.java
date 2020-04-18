@@ -260,18 +260,20 @@ public class ProductosService {
 
         setRdo.addAll(setFecha);
         setRdo.retainAll(setCateg);
-        productosPalabrasClave = setRdo;
         
+        //palabras clave
+        productosPalabrasClave = setRdo;
         if (busquedaLibre != null && !busquedaLibre.isEmpty()) {
             coincidencias = this.coincidencias(busquedaLibre);
-            if (!coincidencias.isEmpty()) {
-                setRdo.retainAll(filtrarPorPalabrasClave(coincidencias, productosPalabrasClave));
-            }
+            setRdo.retainAll(filtrarPorPalabrasClave(coincidencias, productosPalabrasClave));
         }
+        
+        
         
         for (Producto producto : setRdo) {
             rdo.add(producto.getDTO());
         }
+        
         return rdo;
     }
     
@@ -303,7 +305,7 @@ public class ProductosService {
     
     protected List<PalabraClave> coincidencias(String busquedaLibre){
         int i = 0;
-        StringTokenizer strtok = new StringTokenizer(busquedaLibre);
+        StringTokenizer strtok = new StringTokenizer(busquedaLibre, "[,]");
         List<String> busqueda = new ArrayList<>();
         List<String> palabrasClave = new ArrayList<>();
         List<PalabraClave>rdo = new ArrayList<>();
@@ -320,10 +322,28 @@ public class ProductosService {
     
     private Set<Producto> filtrarPorPalabrasClave(List<PalabraClave> busqueda, Set<Producto> productos) {
         Set<Producto> rdo = new HashSet<>();
-        int i = 0;
+        int i;
         for (Producto producto : productos) {
             i = 0;
             while(i < busqueda.size() && !producto.getPalabraClaveList().contains(busqueda.get(i))){
+                i++;
+            }
+            if (i < busqueda.size()) {
+                rdo.add(producto);
+            }
+        }
+        return rdo;
+    }
+    
+    private Set<Producto> filtrarPorTitulo(List<String> palabras, Set<Producto> productos) {
+        Set<Producto> rdo = new HashSet<>();
+        List<String> busqueda = new ArrayList<>();
+        for (String pal : palabras) { busqueda.add(pal.toUpperCase());}
+        int i;
+        for (Producto producto : productos) {
+            i = 0;
+            while(i < busqueda.size() && (!producto.getNombre().toUpperCase().contains(busqueda.get(i)) 
+                    || !producto.getDescripcion().toUpperCase().contains(busqueda.get(i)))){
                 i++;
             }
             if (i < busqueda.size()) {
