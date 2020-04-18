@@ -15,7 +15,7 @@
     <body>
         <h1>Administración</h1> 
         
-        <a href="listaUsuarios.jsp"> Lista de usuarios </a><br/>
+        <a href="UsuariosListar"> Lista de usuarios </a><br/>
         <a href="ProductosListar">Lista de productos </a><br/>
         <a href="PalabrasClaveListar">Lista de palabras clave</a></br>
         <a href="Logout">Logout</a>

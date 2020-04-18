@@ -22,7 +22,6 @@
     
     <body>
         <h1>Usuarios</h1>
-            <button><a href="registro.jsp">A&ntilde;adir usuario</a></button>
             <table border="1">
                 <thead>
                     <tr>
