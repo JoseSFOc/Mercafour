@@ -103,6 +103,7 @@ form {
     position: relative;
     min-width: 72%;
     max-width: 72%;
+    border-radius: 4px;
 }
 
 button {
@@ -113,7 +114,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-    
+
 button:hover {
     background-color: #325c96;    
 }

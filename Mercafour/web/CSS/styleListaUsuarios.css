@@ -79,6 +79,7 @@ form {
     min-width: 84%;
     max-width: 84%;
     padding: 5px; 
+    border-radius: 4px;
 }
 
 input[type=text], select, textarea {
@@ -141,4 +142,4 @@ td {
     text-align: left;
     padding: 0.5em 0.61em;    
 }
-    
+

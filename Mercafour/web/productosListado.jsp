@@ -35,7 +35,7 @@
         }
 
         if (request.getAttribute("nombrePropietario") != null) {
-            nombrePropietario = (String)request.getAttribute("nombrePropietario");
+            nombrePropietario = (String) request.getAttribute("nombrePropietario");
         }
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -122,14 +122,20 @@
         <br/>
         Búsqueda libre: <input placeholder="Búsqueda" type="text" name="filtro_palabras_clave"/>              
         <br/>
-        <input type="submit" value="Filtrar" /> 
-        <button>Resetear filtros</button>
+        <input type="submit" value="Filtrar"/> 
+        <a href="ProductosListar" name="reset">Resetear Filtros</a>
     </form></br>
 
     <%
         if (listaProductos == null || listaProductos.isEmpty()) {
     %>          
-    <h2>En la actualidad no hay ningun producto en la base de datos</h2>
+        <% if (modo == 0) { %>
+        <h2>Esto está muy vacío... ¡Sube tu primer producto!</h2>
+        <% } else if (modo == 1) { %>
+        <h2>Actualmente no hay productos</h2>
+        <% } else if (modo == 2) {%>
+        <h2><%= nombrePropietario%> no tiene ningún producto</h2>
+    <% } %>
     <%
     } else {
     %>
@@ -174,6 +180,6 @@
     </main>
     <%
         } // Cierre if
-    %>
+%>
 </body>
 </html>

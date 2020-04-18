@@ -102,13 +102,14 @@ label {
 form {
     background: white;
     border: 2px solid #555;
-    min-width: 83.05%;
-    max-width: 83.05%;
+    min-width: 61.5rem;
+    max-width: 61.5rem;
     position: relative;
     padding-left: 5px; 
     padding-top: 5px; 
     padding-bottom: 5px; 
     margin-bottom: 1rem;
+    border-radius: 4px;
 }
 
 table{

@@ -100,6 +100,7 @@ form[name="formFormulario"] {
     max-width: 72%;
     height: 80%;
     overflow: auto;
+    border-radius: 4px;
 }
 
 input[type=text], select, textarea {
