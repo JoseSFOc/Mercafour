@@ -285,26 +285,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.fecha = :date");
         q.setParameter("date", f);
         return q.getResultList();   
-    }
+    }    
     
-    /*
-    public List<Producto> findByKeyWord(String categoria) {
+    public List<Producto> findByNameAndDescription (String palabra) {
         Query q;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.categoria LIKE :categoria");
-        q.setParameter("categoria", "%" + categoria + "%"); // Los % se ponen delante y detrás para indicar que la cadena
-                                                      // de caracteres debe estar incluida en el nombre.
-        return q.getResultList();        
-    }        
-    
-    public List<Customer> findByMicroMarketAndName (String codigopostal, String nombre) {
-        Query q;
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE UPPER(p.nombre) LIKE :palabra OR UPPER(p.descripcion) LIKE :palabra");
+        q.setParameter("palabra", "%" + palabra.toUpperCase() + "%");
         
-        q = this.getEntityManager().createQuery("SELECT c FROM Customer c WHERE c.zip.zipCode = :codigo AND c.name LIKE :nombre");
-        q.setParameter("codigo", codigopostal);
-        q.setParameter("nombre", "%" + nombre + "%"); // Los % se ponen delante y detrás para indicar que la cadena
-                                                      // de caracteres debe estar incluida en el nombre.
         return q.getResultList();        
     }  
-    */
 }
