@@ -67,8 +67,9 @@
         <% String str = "";
 
             for (PalabraClaveDTO pAux : producto.getPalabrasClave()) {
-                str += pAux.getPalabra() + " ";
+                str += pAux.getPalabra() + ", ";
             }
+            str = str.substring(0, str.length()-2);
         %>
         Palabras clave: <%= str%></br>
     </fieldset>
