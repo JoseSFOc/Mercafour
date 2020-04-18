@@ -241,11 +241,12 @@ public class ProductosService {
         return rdo;
     }
     
-    public List<ProductoDTO> filtrar(String day, String month, String year, String categoria, String busquedaLibre){
+    public List<ProductoDTO> filtrar(String day, String month, String year, String categoria, String busquedaLibre, String tituloDesc){
         List<Producto> productosFecha, productosCategoria;
         List<ProductoDTO> rdo = new ArrayList<>();
         List<PalabraClave> coincidencias;
-        Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), setRdo = new HashSet<>(), productosPalabrasClave;
+        Set<Producto> setFecha = new HashSet<>(), setCateg = new HashSet<>(), 
+                setRdo = new HashSet<>(), productosPalabrasClave, productosTituloDesc;
         //fecha
         productosFecha = this.filtrarPorFecha(day, month, year);
         for (Producto producto : productosFecha) {setFecha.add(producto);}
@@ -268,7 +269,11 @@ public class ProductosService {
             setRdo.retainAll(filtrarPorPalabrasClave(coincidencias, productosPalabrasClave));
         }
         
-        
+        //titulo y descripcion
+        productosTituloDesc = setRdo;
+        if (tituloDesc != null && !tituloDesc.isEmpty()) {
+            setRdo.retainAll(filtrarPorTitulo(tituloDesc, setRdo));
+        }
         
         for (Producto producto : setRdo) {
             rdo.add(producto.getDTO());
@@ -335,11 +340,14 @@ public class ProductosService {
         return rdo;
     }
     
-    private Set<Producto> filtrarPorTitulo(List<String> palabras, Set<Producto> productos) {
+    private Set<Producto> filtrarPorTitulo(String palabras, Set<Producto> productos) {
         Set<Producto> rdo = new HashSet<>();
         List<String> busqueda = new ArrayList<>();
-        for (String pal : palabras) { busqueda.add(pal.toUpperCase());}
-        int i;
+        StringTokenizer strtok = new StringTokenizer(palabras);
+        while (strtok.hasMoreTokens()) {            
+            busqueda.add(strtok.nextToken().toUpperCase());
+        }
+        /*int i;
         for (Producto producto : productos) {
             i = 0;
             while(i < busqueda.size() && (!producto.getNombre().toUpperCase().contains(busqueda.get(i)) 
@@ -348,6 +356,16 @@ public class ProductosService {
             }
             if (i < busqueda.size()) {
                 rdo.add(producto);
+            }
+        }*/
+        for (String pal : busqueda) {
+            List<Producto> query = this.productoFacade.findByNameAndDescription(pal);
+            if(query!=null && !query.isEmpty()){
+                for (Producto p: query){
+                    if (!rdo.contains(p)) {
+                        rdo.add(p);
+                    }
+                }
             }
         }
         return rdo;
