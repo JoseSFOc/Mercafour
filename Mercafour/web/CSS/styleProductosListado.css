@@ -95,6 +95,10 @@ form {
     border-radius: 4px;
 }
 
+input[type=text] {
+    width: 20rem;
+}
+
 input[type=text], select, textarea {
     border: 1px solid #ccc;
     border-radius: 4px;

@@ -71,6 +71,7 @@
 
     <form action="productosFiltrarPrueba">
         Buscar por: <br/><br/>
+        Búsqueda libre: <input placeholder="Introduzca texto" type="text" name="filtro_nombre"/></br></br>
         Fecha
         <select name="filtro_dia">
             <option value="">-Todos-</option>
@@ -117,10 +118,9 @@
                 }
             %>
         </select>
-        Título: <input placeholder="Título" type="text" name="filtro_nombre"/>
         <br/>
         <br/>
-        Búsqueda libre: <input placeholder="Búsqueda" type="text" name="filtro_palabras_clave"/>              
+        Búsqueda por palabras claves: <input placeholder="Palabras separadas con ," type="text" name="filtro_palabras_clave"/>              
         <br/>
         <input type="submit" value="Filtrar"/> 
         <a href="ProductosListar" name="reset">Resetear Filtros</a>
