@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 15-abr-2020, 13:22:20
+    Created on : 18-abr-2020, 11:56:28
     Author     : josem
 */
 body{
@@ -14,12 +14,17 @@ body{
 }
 
 html {
-    height: auto;
+    height: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background: #70bg32;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, whitesmoke,rgb(154, 201, 201));
+    background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
     background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
 }
 
@@ -41,24 +46,10 @@ u2.navbar {
     right: 1em;
     width: 9em;
 }
-textarea {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 80%;
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
-}
-h1, h2, p {
+h1 {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
-    margin: 1rem;
 }
-
 u1.navbar li {
     background: white;
     margin: 0.5em 0;
@@ -81,28 +72,33 @@ a:link, a:visited {
     color: rgb(0, 151, 151);
 }
 
-fieldset {
-    background: white;
-    padding: 0.3em;
-    border: 3px solid black;
-    position: relative;
-    min-width: 72%;
-    max-width: 72%;  
-    margin: 1rem;
-}
-
-label {
-    font-weight: bold;
-}
-
 form {
     background: white;
-    margin: 1rem;
-    padding: 0.3em;
-    border: 3px solid black;
     position: relative;
-    min-width: 72%;
-    max-width: 72%;
+    border: 2px solid #555;
+    min-width: 84%;
+    max-width: 84%;
+    padding: 5px; 
+}
+
+input[type=text], select, textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+input[type=submit] {
+    background-color: #23416c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+input[type=submit]:hover {
+    background-color: #325c96;  
 }
 
 button {
@@ -112,8 +108,37 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 20px;    
+}
+
+button:hover {
+    background-color: #325c96;      
+}
+
+table{
+    table-layout: fixed;
+    background: white;
+    border-right: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #555;
+    border-collapse: collapse;
+    position: absolute;
+    min-width: 73%;
+    max-width: 73%;
+}
+
+tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+th {
+    background-color: #555;
+    color: #fff;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.5em 0.61em;    
 }
     
-button:hover {
-    background-color: #325c96;    
-}

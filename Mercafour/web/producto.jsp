@@ -65,12 +65,12 @@
         Propietario: <%= producto.getPropietario().getNombre()%></br>
         Categoria: <%= categoria%></br>
         <% String str = "";
-            
-            for(PalabraClaveDTO pAux : producto.getPalabrasClave()){
+
+            for (PalabraClaveDTO pAux : producto.getPalabrasClave()) {
                 str += pAux.getPalabra() + " ";
             }
         %>
-        Palabras clave: <%= str %></br>
+        Palabras clave: <%= str%></br>
     </fieldset>
 
     <h2>Imagen</h2><br/>
@@ -101,7 +101,6 @@
         <input type="radio" name="valoracion" value="5" />5
         <br/><br/>
         <button>Enviar valoración</button> 
-        <a href="ProductosListar?modo=1">Volver</a>
         <p><%= status%></p> 
         <br/>
     </form>
@@ -118,21 +117,17 @@
 
     %>
     <p>En la actualidad no hay ningun comentario para este producto</p>
-    <%        } else {
-        for (ComentarioDTO com : comentarios) {
-            System.out.println(com.getTexto());
-        };
-        for (ComentarioDTO com : comentarios) {
+    <%  } else {
+
+            for (ComentarioDTO com : comentarios) {
     %>
-    <h3>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%></h3>
-    <h3>Valoración: <%=com.getValoracion()%>/5</h3>
-    <p><%=com.getTexto()%></p>
-    <br/>
-    <br/>
+                <fieldset>
+                    <label>Autor: <%=com.getAutor().getNombre()%>. Fecha: <%=format.format(com.getFecha())%>
+                Valoración: <%=com.getValoracion()%>/5</label>
+                <p><%=com.getTexto()%></p>
+                </fieldset>
     <%
-        }
-    %>
-    <%
+            }
         }
     %>
 
