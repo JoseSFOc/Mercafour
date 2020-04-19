@@ -56,11 +56,11 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_PRODUCTO")
     private Integer idProducto;
-    @Size(max = 50)
-    @Column(name = "NOMBRE")
+    //@Size(max = 50)
+    @Column(name = "NOMBRE", length = 50)
     private String nombre;
-    @Size(max = 200)
-    @Column(name = "DESCRIPCION")
+    //@Size(max = 200)
+    @Column(name = "DESCRIPCION", length = 200)
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIO")
@@ -68,8 +68,8 @@ public class Producto implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Size(max = 100)
-    @Column(name = "IMAGEN")
+    //@Size(max = 100)
+    @Column(name = "IMAGEN", length = 100)
     private String imagen;
     @ManyToMany(mappedBy = "productoList", cascade = CascadeType.ALL)
     private List<PalabraClave> palabraClaveList;
