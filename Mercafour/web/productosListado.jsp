@@ -27,6 +27,22 @@
         List<ProductoDTO> listaProductos = (List) request.getAttribute("listaProductos");
         UsuarioDTO user = ((Usuario) session.getAttribute("user")).getDTO();
 
+        String strFiltroDia, strFiltroMes, strFiltroAnio, strFiltroCategoria, strFiltroClave, strFiltroNombre;
+        strFiltroDia = request.getParameter("filtro_dia");
+        strFiltroMes = request.getParameter("filtro_mes");
+        strFiltroAnio = request.getParameter("filtro_anyo");
+        strFiltroCategoria = request.getParameter("filtro_categoria");
+        strFiltroClave = request.getParameter("filtro_palabras_clave");
+        strFiltroNombre = request.getParameter("filtro_nombre");
+
+        if (strFiltroClave == null) {
+            strFiltroClave = "";
+        }
+
+        if (strFiltroNombre == null) {
+            strFiltroNombre = "";
+        }
+
         int modo = 0;
         String nombrePropietario = "";
 
@@ -64,20 +80,25 @@
             <% } else if (modo == 2) { %>
         <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
         <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
-            <% } %>
+            <% }%>
         <li><a href="ProductosCrear">Subir Productos</a></li>
     </u2>
 
     <form action="productosFiltrarPrueba">
         Buscar por: <br/><br/>
-        Búsqueda libre: <input placeholder="Introduzca texto" type="text" name="filtro_nombre"/></br></br>
+        Búsqueda libre: <input placeholder="Introduzca texto" type="text" name="filtro_nombre" value="<%= strFiltroNombre%>"/></br></br>
         Fecha
         <select name="filtro_dia">
             <option value="">-Todos-</option>
             <%
                 for (int i = 1; i <= 31; i++) {
+                    String selected = "";
+                    if (strFiltroDia != null && !strFiltroDia.isEmpty()
+                            && (i == Integer.parseInt(strFiltroDia))) {
+                        selected = "selected";
+                    }
             %>
-            <option value="<%=i%>"><%=i%></option>
+            <option <%= selected%> value="<%=i%>"><%=i%></option>
             <%
                 }
             %>
@@ -87,8 +108,13 @@
             <option value="">-Todos-</option>
             <%
                 for (int i = 1; i <= 12; i++) {
+                    String selected = "";
+                    if (strFiltroMes != null && !strFiltroMes.isEmpty()
+                            && (i == Integer.parseInt(strFiltroMes))) {
+                        selected = "selected";
+                    }
             %>
-            <option value="<%=i%>"><%=i%></option>
+            <option <%= selected%> value="<%=i%>"><%=i%></option>
             <%
                 }
             %>
@@ -98,8 +124,13 @@
             <option value="">-Todos-</option>
             <%
                 for (int i = 2020; i > 2001; i--) {
+                    String selected = "";
+                    if (strFiltroAnio != null && !strFiltroAnio.isEmpty()
+                            && (i == Integer.parseInt(strFiltroAnio))) {
+                        selected = "selected";
+                    }
             %>
-            <option value="<%=i%>"><%=i%></option>
+            <option <%= selected%> value="<%=i%>"><%=i%></option>
             <%
                 }
             %>
@@ -111,29 +142,34 @@
             <option value="">-Todas las categorías-</option>
             <%
                 for (CategoriaDTO c : listaCategorias) {
+                    String selected = "";
+                    if (strFiltroCategoria != null && !strFiltroCategoria.isEmpty()
+                            && (c.getIdCategoria() == Integer.parseInt(strFiltroCategoria))) {
+                        selected = "selected";
+                    }
             %>
-            <option value="<%=c.getIdCategoria()%>"><%=c.getNombre()%></option>
+            <option <%= selected%> value="<%=c.getIdCategoria()%>"><%=c.getNombre()%></option>
             <%
                 }
             %>
         </select>
         <br/>
         <br/>
-        Búsqueda por palabras claves: <input placeholder="Palabras separadas con ," type="text" name="filtro_palabras_clave"/>              
+        Búsqueda por palabras claves: <input placeholder="Palabras separadas con ," type="text" name="filtro_palabras_clave" value="<%= strFiltroClave%>"/>              
         <br/>
         <input type="submit" value="Filtrar"/> 
-        <a href="ProductosListar?modo=<%= modo %>" name="reset">Resetear Filtros</a>
+        <a href="ProductosListar?modo=<%= modo%>" name="reset">Resetear Filtros</a>
     </form></br>
 
     <%
         if (listaProductos == null || listaProductos.isEmpty()) {
     %>          
-        <% if (modo == 0) { %>
-        <h2>Esto está muy vacío... ¡Sube tu primer producto!</h2>
-        <% } else if (modo == 1) { %>
-        <h2>Actualmente no hay productos</h2>
-        <% } else if (modo == 2) {%>
-        <h2><%= nombrePropietario%> no tiene ningún producto</h2>
+    <% if (modo == 0) { %>
+    <h2>Esto está muy vacío... ¡Sube tu primer producto!</h2>
+    <% } else if (modo == 1) { %>
+    <h2>Actualmente no hay productos</h2>
+    <% } else if (modo == 2) {%>
+    <h2><%= nombrePropietario%> no tiene ningún producto</h2>
     <% } %>
     <%
     } else {
