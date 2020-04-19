@@ -40,8 +40,8 @@ public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ComentarioPK comentarioPK;
-    @Size(max = 200)
-    @Column(name = "TEXTO")
+    //@Size(max = 200)
+    @Column(name = "TEXTO", length = 200)
     private String texto;
     @Column(name = "VALORACION")
     private Integer valoracion;
