@@ -1,11 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
 /* 
-    Created on : 10-abr-2020, 12:14:59
+    Created on : 19-abr-2020, 19:42:44
     Author     : josem
 */
 body{
     padding-left: 11em;
     font-family: Arial, Helvetica, sans-serif;
     color : #2b2c2a;
+    overflow: auto;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
 }
 
 html {
@@ -13,11 +24,10 @@ html {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    background-size: cover;
     background: #70bg32;
     background-repeat:no-repeat;
-    background-size:contain;
-    background-position:center;
-    background: -webkit-linear-gradient( to left top, whitesmoke,rgb(154, 201, 201));
+    background: -webkit-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
     background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
     background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
     background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
@@ -33,6 +43,7 @@ u1.navbar {
     left: 1em;
     width: 9em;
 }
+
 u2.navbar {
     list-style-type: none;
     padding: 0;
@@ -42,65 +53,49 @@ u2.navbar {
     right: 1em;
     width: 9em;
 }
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-}
+
 u1.navbar li {
     background: white;
     margin: 0.5em 0;
     padding: 0.3em;
     border-right: 1em solid black;
 }
+
 u1.navbar a{
     text-decoration: none;
 }
+
 u2.navbar li {
     background: white;
     margin: 0.5em 0;
     padding: 0.3em;
     border-left: 1em solid black;
 }
+
 u2.navbar a{
     text-decoration: none;
 }
+
 a:link, a:visited {
     color: rgb(0, 151, 151);
 }
 
-a[name="reset"]:link, a[name="reset"]:visited {
-    background-color: #23416c;
-    color: white;
-    padding: 11px 20px;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 80%;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 5px;
-    width: 10rem;
-}
-
-a[name="reset"]:hover, a[name="reset"]:active {
-    background-color: #325c96;
-}
-
 form {
     background: white;
-    position: relative;
-    border: 2px solid #555;
-    min-width: 84%;
-    max-width: 84%;
-    padding: 5px; 
+    margin: auto;
+    padding: 0.3em;
+    border: 3px solid black;
+    min-width: 82%;
+    max-width: 82%;
+    overflow: auto;
     border-radius: 4px;
+    float: left;
 }
 
-input[type=text] {
-    width: 20rem;
-}
-
-input[type=text], select, textarea {
+input[type=text], input[type=password] {
+    width: auto;
+    margin: 0.3rem;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
@@ -113,50 +108,9 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px;
+    float: right;
 }
 
 input[type=submit]:hover {
-    background-color: #325c96;  
-}
-
-button {
-    background-color: #23416c;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;    
-}
-
-button:hover {
-    background-color: #325c96;      
-}
-
-table{
-    table-layout: fixed;
-    background: white;
-    border-right: 2px solid #555;
-    border-left: 2px solid #555;
-    border-bottom: 2px solid #555;
-    border-collapse: collapse;
-    position: absolute;
-    min-width: 73%;
-    max-width: 73%;
-}
-
-tr:nth-child(odd) {
-    background-color: #eee;
-}
-
-th {
-    background-color: #555;
-    color: #fff;
-}
-
-th,
-td {
-    text-align: left;
-    padding: 0.5em 0.61em;    
+    background-color: #325c96;    
 }

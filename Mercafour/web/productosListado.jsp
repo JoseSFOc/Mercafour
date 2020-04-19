@@ -52,7 +52,6 @@
 
     <u1 class="navbar">
         <% if (user.isIsAdmin()) {%><li><a href="menuAdministrador.jsp">Página de Administración</a></li><% } %>
-        <li><a href="">Buscar</a></li>
         <li><a href="PalabrasClaveListar">Palabras Clave</a></li>
         <li><a href="Logout">Logout</a></li>
     </u1>
@@ -123,7 +122,7 @@
         Búsqueda por palabras claves: <input placeholder="Palabras separadas con ," type="text" name="filtro_palabras_clave"/>              
         <br/>
         <input type="submit" value="Filtrar"/> 
-        <a href="ProductosListar" name="reset">Resetear Filtros</a>
+        <a href="ProductosListar?modo=<%= modo %>" name="reset">Resetear Filtros</a>
     </form></br>
 
     <%

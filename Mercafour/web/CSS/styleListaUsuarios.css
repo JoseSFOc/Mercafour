@@ -14,18 +14,10 @@ body{
 }
 
 html {
-    height: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background: #70bg32;
-    background-repeat:no-repeat;
-    background: -webkit-linear-gradient( to left top, whitesmoke,rgb(154, 201, 201));
-    background: -moz-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
-    background: -ms-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
-    background: -o-linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    height: 750%;
     background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 
 u1.navbar {
@@ -37,37 +29,23 @@ u1.navbar {
     left: 1em;
     width: 9em;
 }
-u2.navbar {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 2em;
-    right: 1em;
-    width: 9em;
-}
+
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
 }
+
 u1.navbar li {
     background: white;
     margin: 0.5em 0;
     padding: 0.3em;
     border-right: 1em solid black;
 }
+
 u1.navbar a{
     text-decoration: none;
 }
-u2.navbar li {
-    background: white;
-    margin: 0.5em 0;
-    padding: 0.3em;
-    border-left: 1em solid black;
-}
-u2.navbar a{
-    text-decoration: none;
-}
+
 a:link, a:visited {
     color: rgb(0, 151, 151);
 }
@@ -82,40 +60,6 @@ form {
     border-radius: 4px;
 }
 
-input[type=text], select, textarea {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-}
-
-input[type=submit] {
-    background-color: #23416c;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-input[type=submit]:hover {
-    background-color: #325c96;  
-}
-
-button {
-    background-color: #23416c;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;    
-}
-
-button:hover {
-    background-color: #325c96;      
-}
-
 table{
     table-layout: fixed;
     background: white;
@@ -124,8 +68,8 @@ table{
     border-bottom: 2px solid #555;
     border-collapse: collapse;
     position: absolute;
-    min-width: 73%;
-    max-width: 73%;
+    min-width: 70rem;
+    max-width: 70rem;
 }
 
 tr:nth-child(odd) {
