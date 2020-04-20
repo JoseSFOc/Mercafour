@@ -1,0 +1,98 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-abr-2020, 12:19:12
+    Author     : josem
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15-abr-2020, 13:22:20
+    Author     : josem
+*/
+body{
+    padding-left: 11em;
+    font-family: Arial, Helvetica, sans-serif;
+    color : #2b2c2a;
+}
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #70bg32;
+    background: linear-gradient( to left top, rgb(154, 201, 201), whitesmoke);
+}
+
+u1.navbar {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 2em;
+    left: 1em;
+    width: 9em;
+}
+u2.navbar {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 2em;
+    right: 1em;
+    width: 9em;
+}
+
+h1, h2, p {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    margin: 1rem;
+}
+
+u1.navbar li {
+    background: white;
+    margin: 0.5em 0;
+    padding: 0.3em;
+    border-right: 1em solid black;
+}
+u1.navbar a{
+    text-decoration: none;
+}
+u2.navbar li {
+    background: white;
+    margin: 0.5em 0;
+    padding: 0.3em;
+    border-left: 1em solid black;
+}
+u2.navbar a{
+    text-decoration: none;
+}
+a:link, a:visited {
+    color: rgb(0, 151, 151);
+}
+
+label {
+    font-weight: bold;
+}
+
+fieldset {
+    background: white;
+    margin: 1rem;
+    padding: 0.3em;
+    border: 3px solid black;
+    position: relative;
+    min-width: 72%;
+    max-width: 72%;
+    border-radius: 4px;
+}
+
+
+

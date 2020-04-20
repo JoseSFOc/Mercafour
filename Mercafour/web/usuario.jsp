@@ -15,11 +15,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página del usuario</title>
+        <link rel="stylesheet" href="CSS/styleUsuario.css">
     </head>
     <%
         String idUsuario = "", username = "", password = "", nombre = "", email = "";
         UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
- 
+        UsuarioDTO conectado = ((Usuario) session.getAttribute("user")).getDTO();
 
         if (usuario != null) {
             idUsuario = usuario.getUserId().toString();
@@ -31,9 +32,26 @@
 
     %>
     <body>
-        <h1><%= username %></h1>
-        Nombre: <%= nombre %><br/>
-        Email: <%= email %><br/><br/>
-        <a href="ProductosListar?modo=2&idProp=<%= idUsuario %>">Productos de <%= username %></a>
-    </body>
+
+    <u1 class="navbar">
+        <% if (conectado.isIsAdmin()) {%><li><a href="menuAdministrador.jsp">Página de Administración</a></li><% }%>
+        <li><a href="PalabrasClaveListar">Palabras Clave</a></li>
+        <li><a href="Logout">Logout</a></li>
+    </u1>
+
+    <u2 class="navbar">
+        <li><a href="ProductosListar?modo=0">Mis Productos</a></li>
+        <li><a href="ProductosListar?modo=1">Todos los Productos</a></li>
+        <li><a href="ProductosCrear">Subir Productos</a></li>
+    </u2>
+
+    <h1><%= username%></h1>
+
+    <fieldset>
+        <label>Nombre: </label><%= nombre%><br/>
+        <label>Email: </label><%= email%><br/><br/>
+        <a href="ProductosListar?modo=2&idProp=<%= idUsuario%>">Productos de <%= username%></a>
+    </fieldset>
+
+</body>
 </html>
